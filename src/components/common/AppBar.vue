@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app color="#3b477a" dark class="shadow">
+  <v-app-bar app class="appbar" dark elevation="20">
     <router-link to="/" class="routerlink">
       <v-img
         transition="slide-x-reverse-transition"
@@ -46,12 +46,9 @@ function login() {
 </script>
 
 <style scoped>
-.shadow {
-  -webkit-box-shadow: 0px 20px 23px -7px #000000, 50px -2px 25px 13px rgba(53,255,222,0);
-  box-shadow: 0px 30px 23px -7px #000000, 50px -2px 35px 33px rgba(53,255,222,0);
-}
 .appbar {
-  background-color: #222b45;
+  background-color: #293556;
+  color: white;
 }
 .logo {
   position: absolute;
