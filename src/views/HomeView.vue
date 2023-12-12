@@ -1,5 +1,5 @@
 <template>
-    <v-row class="pt-8">
+    <v-row class="mt-10 pt-10 shadow">
       <v-col cols="12" class="white--text text-center text-lg-h1 text-h5"
       >Der Modellflugzeug - Hangar</v-col
       >
@@ -27,5 +27,11 @@
 <script setup lang="ts">
 
 </script>
+<style scoped>
+.shadow {
+  box-shadow: inset 0px 50px 50px -20px rgba(0, 0, 0, 0.51);
+}
+</style>
+
 
 
