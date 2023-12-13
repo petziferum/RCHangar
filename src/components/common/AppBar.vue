@@ -27,17 +27,16 @@
         <v-btn variant="text" @click="login">Login</v-btn>
       </template>
     </template>
-    <v-spacer></v-spacer>
   </v-app-bar>
 </template>
 <script lang="ts" setup>
 import { computed } from "vue";
+import { fireUser } from '@/plugins/firesbaseConfig'
 
 
 
 const user = computed(() => {
-  return {
-    email: "email@mail.com"};
+  return fireUser;
 });
 
 function login() {
