@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore/lite'
 import { getAuth, signOut, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { getStorage } from 'firebase/storage'
+import { useUserStore } from '@/stores/userStore'
 
 const firebaseConfig = {
   apiKey: "AIzaSyAGwO2YDTyZFJsiZlWgfgaqkXYUqCgHsHc",
@@ -19,19 +20,23 @@ const fireBucket = getStorage(firebaseApp);
 const fireAuth = getAuth(firebaseApp);
 let fireUser = fireAuth.currentUser;
 export const registerWithGoogle = () => {
+  const userState = useUserStore();
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
   signInWithPopup(auth, provider)
     .then((result) => {
       fireUser = result.user;
+      userState.userFirestoreData = result.user;
     })
     .catch((error) => {
       console.error("Fehler beim login:", error.message);
     });
 };
 export const logOut = () => {
+  const userState = useUserStore();
   signOut(fireAuth).then(() => {
     fireUser = null;
+    userState.userFirestoreData = null;
   });
 }
 

@@ -1,7 +1,10 @@
 <template>
     <v-row class="mt-10 pt-10 shadow">
       <v-col cols="12" class="white--text text-center text-lg-h1 text-h5"
-      >Der Modellflugzeug - Hangar</v-col
+      >
+        --<v-icon icon="mdi-home" /> Modellflugzeug - Hangar
+
+      </v-col
       >
     </v-row>
     <v-row justify="center">

@@ -16,6 +16,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@jamescoyle/vue-icon": "^0.1.2",
+    "@mdi/font": "7.3.67",
+    "@mdi/js": "^7.3.67",
     "firebase": "^10.7.1",
     "pinia": "^2.1.7",
     "vue": "^3.3.10",

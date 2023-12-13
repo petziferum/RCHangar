@@ -6,8 +6,11 @@
   </v-main>
     <v-footer>
       <div class="footer">
-    <div v-if="u" style="height: 200px">
-      fireUser: {{ u.email }}
+    <div v-if="userState.userFirestoreData">
+      fireUser: {{ userState.userFirestoreData }}
+      <div v-if="userState.isAdmin">
+        ADMIN <v-icon color="yellow">mdi-account</v-icon>
+      </div>
       <div>
         <v-btn @click="logOut">logout</v-btn>
       </div>
@@ -25,15 +28,17 @@ import AppBar from '../src/components/common/AppBar.vue'
 import { onBeforeMount, ref } from 'vue'
 import { fireAuth, fireUser, registerWithGoogle, logOut as outlog } from '@/plugins/firesbaseConfig'
 import { onAuthStateChanged } from 'firebase/auth'
-import firebase from 'firebase/compat'
+import { useUserStore } from '@/stores/userStore'
 
+const userState = useUserStore();
 const u = ref(fireUser)
 
 onBeforeMount(() => {
   onAuthStateChanged(fireAuth, (user) => {
     console.log("Authstate changed", user);
-if (user as firebase.User) {
+if (user) {
       u.value = user;
+      userState.userFirestoreData = user;
     } else {
       u.value= null;
     }
