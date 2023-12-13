@@ -1,5 +1,11 @@
 # RCHangar
 
+# Todo
+
+- [ ] gebautAm Feld hinzufügen in dem das Datum gespeichert wird an dem das Modell gebaut wurde.
+
+----
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
