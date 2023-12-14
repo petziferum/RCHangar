@@ -22,20 +22,16 @@ import { usePlaneStore } from '@/stores/planeStore'
 const planeStore = usePlaneStore()
 const orderList = ref(["name", "id", "faktor", "gewicht", "spannweite"])
 const orderBy = ref("name")
-const getByOrder = computed(() => {
-  return planeStore.planesList.sort((a, b) => {
-    if (a[orderBy.value] < b[orderBy.value]) {
-      return -1
-    }
-    if (a[orderBy.value] > b[orderBy.value]) {
-      return 1
-    }
-    return 0
-  })
-})
+function getByOrder() {
+  console.info("order by", orderBy.value);
+  getPlanes();
+};
 
+function getPlanes() {
+  planeStore.loadAllPlanes();
+}
 onBeforeMount(() => {
-  planeStore.loadAllPlanes()
+  getPlanes();
 });
 </script>
 <style scopedts>
