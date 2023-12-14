@@ -25,7 +25,9 @@
           </v-card-text>
           <v-card-text>
             <v-btn @click="planeStore.loadAllPlanes()">get planes</v-btn>
+            <v-icon v-if="planeStore.hangarLoading" class="mx-5" icon="mdi-knob mdi-spin" color="grey" />
           </v-card-text>
+          <v-data-table v-if="!planeStore.hangarLoading" :items="planeStore.planesList" density="compact" />
         </v-card>
       </v-col>
     </v-row>
