@@ -1,7 +1,10 @@
 <template>
     <v-row class="mt-10 pt-10 shadow">
       <v-col cols="12" class="white--text text-center text-lg-h1 text-h5"
-      >Der Modellflugzeug - Hangar</v-col
+      >
+        <v-icon icon="mdi-controller mdi-spin" aria-hidden /><v-icon icon="mdi-airplane" aria-hidden /> Modellflugzeug - Hangar <v-icon icon="mdi-knob mdi-spin" />
+
+      </v-col
       >
     </v-row>
     <v-row justify="center">
@@ -20,12 +23,19 @@
             Originalen Flugzeugtyps erzählt.
             <p>Viel Spaß beim Stöbern!</p>
           </v-card-text>
+          <v-card-text>
+            <v-btn @click="planeStore.loadAllPlanes()">get planes</v-btn>
+            <v-icon v-if="planeStore.hangarLoading" class="mx-5" icon="mdi-knob mdi-spin" color="grey" />
+          </v-card-text>
+          <v-data-table v-if="!planeStore.hangarLoading" :items="planeStore.planesList" density="compact" />
         </v-card>
       </v-col>
     </v-row>
 </template>
 <script setup lang="ts">
+import { usePlaneStore } from '@/stores/planeStore';
 
+const planeStore = usePlaneStore();
 </script>
 <style scoped>
 .shadow {
