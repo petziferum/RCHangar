@@ -9,12 +9,15 @@
         v-model="orderBy"
         @input="getByOrder"
       ></v-select>
-      <div class="white--text">Flugzeuge: {{ planeStore.planesList.length }}</div>
+      <div class="mx-5 text-white">Flugzeuge: {{ planeStore.planesList.length }}</div>
     </v-col>
+  </v-row>
+  <v-row>
+    <v-icon v-if="planeStore.hangarLoading" class="mx-5" icon="mdi-knob mdi-spin" color="grey" />
   </v-row>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import { usePlaneStore } from '@/stores/planeStore'
 const planeStore = usePlaneStore()
 const orderList = ref(["name", "id", "faktor", "gewicht", "spannweite"])
@@ -30,6 +33,10 @@ const getByOrder = computed(() => {
     return 0
   })
 })
+
+onBeforeMount(() => {
+  planeStore.loadAllPlanes()
+});
 </script>
 <style scopedts>
 
