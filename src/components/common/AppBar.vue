@@ -17,6 +17,7 @@
         <!-- <v-tab to="devtest">devTest</v-tab> -->
         <v-tab to="/">Hangar</v-tab>
         <v-tab v-show="user" to="/admin">Admin</v-tab>
+        <v-tab to="/hangar">Hangar</v-tab>
       </v-tabs>
 
       <v-spacer />
