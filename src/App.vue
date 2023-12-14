@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <app-bar />
-  <v-main class="appMain">
+  <v-main app class="appMain">
   <RouterView />
   </v-main>
     <v-footer>
@@ -58,10 +58,10 @@ function logOut() {
 }
 .appMain {
   z-index: 5;
-  padding-top: 64px;
+  padding: 101px;
   background-color: #5a664b;
   border: 0px solid #00664b;
-  box-shadow: 0px 5px 8px -1px rgba(0,0,0,0.7);
+  box-shadow: 0px 25px 20px -2px rgba(0,0,0,0.5);
   border-radius: 20px;
   height: 100%;
   width: 100%;
