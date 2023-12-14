@@ -10,16 +10,15 @@ interface ImageItem {
   url: string;
 }
 export default class HangarService {
-  public static async getAllPlanes(orderby: string | undefined): Promise<Plane[]> {
+  public static async getAllPlanes(): Promise<Plane[]> {
     const planesList: Array<Plane> = [];
-    console.log("HangarService.getAllPlanes", db);
+    console.log("HangarService.getAllPlanes");
     const snap = await getDocs(
       collection(db,"planes").withConverter(planeConverter)
     );
+    console.log("snap", snap);
     snap.forEach((doc) => {
-      if (doc.exists()) {
         planesList.push(doc.data() as Plane);
-      }
     });
     return planesList;
   }

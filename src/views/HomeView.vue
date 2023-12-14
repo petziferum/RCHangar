@@ -24,7 +24,7 @@
             <p>Viel Spaß beim Stöbern!</p>
           </v-card-text>
           <v-card-text>
-            <v-btn @click="planeStore.getPlanes()">get planes</v-btn>
+            <v-btn @click="planeStore.loadAllPlanes()">get planes</v-btn>
           </v-card-text>
         </v-card>
       </v-col>

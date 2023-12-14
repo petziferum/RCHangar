@@ -6,12 +6,14 @@ import HangarService from '@/api/hangarService.api'
 export const usePlaneStore = defineStore('platneStore', () => {
   const planesList = ref<Plane[]>([])
 
-  function getPlanes() {
-    HangarService.getAllPlanes('name').then((res) => {
+  function loadAllPlanes() {
+    console.log("loadAllPlanes");
+    HangarService.getAllPlanes().then((res) => {
+      console.log("getPlanes", res);
       planesList.value = res
     });
   }
 
 
-  return { planesList, getPlanes }
+  return { planesList, loadAllPlanes }
 })
