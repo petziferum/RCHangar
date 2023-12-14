@@ -23,12 +23,17 @@
             Originalen Flugzeugtyps erzählt.
             <p>Viel Spaß beim Stöbern!</p>
           </v-card-text>
+          <v-card-text>
+            <v-btn @click="planeStore.getPlanes()">get planes</v-btn>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
 </template>
 <script setup lang="ts">
+import { usePlaneStore } from '@/stores/planeStore';
 
+const planeStore = usePlaneStore();
 </script>
 <style scoped>
 .shadow {

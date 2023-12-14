@@ -1,0 +1,194 @@
+[
+  {
+    "name": "Antonov",
+    "sender": "Turnigy",
+    "type": "TD",
+    "bauweise": "Styro",
+    "gewicht": 150,
+    "spannweite": 56,
+    "faktor": "2,7",
+    "beschreibung": "Antonow An 2<p>Sibirisches \"Arbeitspferd\", robust und niedrige Abhebegeschwindigkeit von 82 kmh. Wegen des hohen Höhenleitwerks beliebt zum Absetzen vun Fallschirmspringern. Heute statt dem Sternmotor mit Turboprop ausgestattet.",
+    "image": "antonov"
+  },
+  {
+    "name": "Boomerang",
+    "type": "TD",
+    "sender": "Spektrum",
+    "bauweise": "",
+    "gewicht": 170,
+    "spannweite": 50,
+    "faktor": "3,4",
+    "image": "boomerang",
+    "beschreibung": "Am Beginn des Krieges wollten die Australier ihre Häfen vor den Japanern schützen. Deshalb entwickelten sie aus der vorhandenen Commonwealth einen eigenen Jäger\n mit einem Motor von Pratt&Withney (Doppelstern). Stückzahl etwa 250"
+  },
+  {
+    "name": "Redbull",
+    "sender": "Turnigy",
+    "type": "TD",
+    "bauweise": "",
+    "gewicht": 340,
+    "spannweite": 90,
+    "faktor": "3,8",
+    "image": "redbull"
+  },
+  {
+    "name": "Corsair",
+    "type": "TD",
+    "bauweise": "EZF",
+    "gewicht": 1500,
+    "spannweite": 118,
+    "faktor": "12,7",
+    "beschreibung": "Corsair <p> Moderner US Jäger als Ersatz von Hellcat und Warhawk. Da Tests ergaben, dass der Sternmotor von Pratt&Withney nur mit einem Propeller von 2m Durchmesser maximale Leistung Leistung \nerbringt, bekam sie die charakteristischen Knickflügel, um die Rumpfnase vom Boden abzuheben. für den Trägereinsatz worde die Kanzel um 13 cm angehoben, um dem Piloten bessere sicht zu gewähren.",
+    "image": "corsair"
+  },
+  {
+    "name": "Eltra",
+    "type": "MD",
+    "bauweise": "",
+    "gewicht": 1540,
+    "spannweite": 166,
+    "faktor": "9,3",
+    "image": "eltra"
+  },
+  {
+    "name": "E-Zone",
+    "type": "MD",
+    "bauweise": "",
+    "gewicht": 700,
+    "spannweite": 97,
+    "faktor": "7,2",
+    "image": "ezone"
+  },
+  {
+    "name": "Flame",
+    "type": "TD",
+    "bauweise": "",
+    "gewicht": 1280,
+    "spannweite": 183,
+    "faktor": 7,
+    "image": "flame"
+  },
+  {
+    "name": "Fokker D9",
+    "type": "DD",
+    "bauweise": "",
+    "gewicht": 1270,
+    "spannweite": 113,
+    "faktor": "11,2",
+    "beschreibung": "Fokker D9\nLegendärer deutscher Jäger im WW1. Es gab den Spruch: Die Fokker D9 macht aus einem Durchschnittspiloten ein Fliegerass. Es ging das Gerücht, die Stützen zwischen den Flügeln dienten nur der mentalen Beruhigung \ndes Piloten. Am Kriegsende wurden alle Maschinen von den USA beschlagnahmt. Berühmtes Foto einer D9 vor der Freiheitsstatue.",
+    "image": "fokkerd9"
+  },
+  {
+    "name": "Lightning -",
+    "type": "MD",
+    "bauweise": "2mot",
+    "gewicht": 788,
+    "spannweite": 102,
+    "faktor": "7,7",
+    "beschreibung": "Lightning<p>Landstreckenjäger für extreme Höhen. Auf der Oberseite der Motoren mit 4000 PS die Turbolader.",
+    "image": "lightningminus"
+  },
+  {
+    "name": "Lightning+",
+    "type": "MD",
+    "bauweise": "2mot",
+    "gewicht": 1450,
+    "spannweite": 132,
+    "faktor": 11,
+    "image": "lightningplus"
+  },
+  {
+    "name": "Me 109",
+    "type": "TD",
+    "bauweise": "",
+    "gewicht": 360,
+    "spannweite": 80,
+    "faktor": "4,5",
+    "beschreibung": "Me 109 <p> (Messerschmitt BF 109)\nAusgeschrieben war ein Jäger ohne Kabine, der auf der Bahn transportierbar war. Also abnehmbare Tragflächen und Fahrwerk am Rumpf. Das bedingte die enge Fahrspur, \ndie ungeübten Piloten öfter zum Verhängnis wurde. Ursprünglich mit einer Kanone bestückt, die durch die Kurbelwelle und den Spinner schoss. Hat sich nicht bewährt.",
+    "image": "me109"
+  },
+  {
+    "name": "Me 110",
+    "type": "TD",
+    "bauweise": "EZF  3  2mot",
+    "gewicht": 760,
+    "spannweite": 108,
+    "faktor": 7,
+    "beschreibung": "Me 110<p>Langstreckenjäger, hoher Blutzoll in der Luftschlacht über England, später erster Nachtjäger mit Radar",
+    "image": "me110"
+  },
+  {
+    "name": "Rata",
+    "type": "TD",
+    "bauweise": "",
+    "gewicht": 960,
+    "spannweite": 100,
+    "faktor": "9,6",
+    "image": "rata"
+  },
+  {
+    "name": "Scirocco",
+    "type": "TD",
+    "bauweise": "EZF 3",
+    "gewicht": 920,
+    "spannweite": 104,
+    "faktor": "8,8",
+    "image": "scirocco"
+  },
+  {
+    "name": "SE 10",
+    "type": "HD",
+    "bauweise": "",
+    "gewicht": 1200,
+    "spannweite": 138,
+    "faktor": "8,7",
+    "image": "se10"
+  },
+  {
+    "name": "Spitfire",
+    "type": "TD",
+    "bauweise": "EZF",
+    "gewicht": 840,
+    "spannweite": 111,
+    "faktor": "7,6",
+    "beschreibung": "Spitfire <p> Englischer Standardjäger, besondes stömungsgünstiges Design (eliptische Flächen, besonders weicher Übergang Rumf/Fläche)",
+    "image": "spitfire"
+  },
+  {
+    "name": "Stuka",
+    "type": "TD",
+    "bauweise": "L",
+    "gewicht": 1250,
+    "spannweite": 122,
+    "faktor": "10,2",
+    "beschreibung": "Stuka 8 (Junkers Ju 87 G)<p>Engländer nennen ihn den Blitzkriegbomber. Mit Reihenmotor, weil die schlankere Rumpfnase ein besseres Sichtfeld bietet, und damit dem Piloten ermöglicht,<br>länger auf das Ziel zuzuhalten. Bemerkenswert die Sturzflugbremse, die ein späteres Abfangen ermöglicht.",
+    "image": "stuka"
+  },
+  {
+    "name": "Styro 66",
+    "type": "DD",
+    "bauweise": "",
+    "gewicht": 480,
+    "spannweite": 96,
+    "faktor": 5,
+    "image": "styro66"
+  },
+  {
+    "name": "Texan",
+    "type": "TD",
+    "bauweise": "EZF",
+    "gewicht": 980,
+    "spannweite": 120,
+    "faktor": "8,2",
+    "image": "texan"
+  },
+  {
+    "name": "US Army",
+    "type": "MD",
+    "bauweise": "",
+    "gewicht": 500,
+    "spannweite": 100,
+    "faktor": 5,
+    "image": "usarmy"
+  }
+]

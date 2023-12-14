@@ -30,7 +30,9 @@ import { fireAuth, fireUser, registerWithGoogle, logOut as outlog } from '@/plug
 import { onAuthStateChanged } from 'firebase/auth'
 import { useUserStore } from '@/stores/userStore'
 
+
 const userState = useUserStore();
+
 const u = ref(fireUser)
 
 onBeforeMount(() => {

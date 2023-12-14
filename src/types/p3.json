@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Twin",
+    "type": "TD",
+    "bauweise": "EZF",
+    "gewicht": 482,
+    "spannweite": 86,
+    "faktor": "5,9",
+    "image": "twin",
+    "beschreibung": "",
+    "sender": ""
+  },
+  {
+    "name": "Camel",
+    "type": "DD",
+    "bauweise": "",
+    "gewicht": 1640,
+    "spannweite": 128,
+    "faktor": "12,8",
+    "image": "camel",
+    "beschreibung": "",
+    "sender": ""
+  },
+  {
+    "name": "Mig3",
+    "type": "TD",
+    "bauweise": "",
+    "gewicht": 580,
+    "spannweite": 89,
+    "faktor": "6,2",
+    "image": "mig3",
+    "beschreibung": "",
+    "sender": ""
+  },
+  {
+    "name": "Hurricane",
+    "type": "TD",
+    "bauweise": "EZF",
+    "gewicht": 480,
+    "spannweite": 80,
+    "faktor": "6",
+    "image": "hurricane",
+    "beschreibung": "",
+    "sender": ""
+  }
+]

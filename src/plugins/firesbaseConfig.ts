@@ -15,7 +15,7 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
-const fireStore = getFirestore(firebaseApp);
+const db = getFirestore(firebaseApp);
 const fireBucket = getStorage(firebaseApp);
 const fireAuth = getAuth(firebaseApp);
 let fireUser = fireAuth.currentUser;
@@ -41,5 +41,5 @@ export const logOut = () => {
 }
 
 
-export { fireStore, fireBucket, fireAuth, fireUser };
+export { db, fireBucket, fireAuth, fireUser };
 export default firebaseApp;
