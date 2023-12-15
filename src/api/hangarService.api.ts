@@ -1,4 +1,4 @@
-import type Plane from '@/types/Plane'
+import Plane from '@/types/Plane'
 import { planeConverter } from '@/types/Plane'
 import { getDocs, collection } from 'firebase/firestore'
 import { db } from '@/plugins/firesbaseConfig'
@@ -22,4 +22,44 @@ export default class HangarService {
     });
     return planesList;
   }
+
+  public static async getPlaneById(id: string): Promise<Plane> {
+    return new Promise((resolve, reject) => {
+      return Plane.createEmptyPlane(); // muss noch ausformuliert werden
+    });
+  }
+
+  public static setPlaneSchrott(id: string): Promise<void | Plane> {
+    return new Promise((resolve, reject) => {
+      return Plane.createEmptyPlane(); // muss noch ausformuliert werden
+    });
+  }
+
+  public static saveNewPlane(plane: Plane): Promise<void | Plane> {
+    return new Promise((resolve, reject) => {
+      return Plane.createEmptyPlane(); // muss noch ausformuliert werden
+    });
+  }
+
+  public static uploadPlaneImages(): void {
+    console.log("uploadPlaneImages wird noch ergänzt");
+  }
+
+  public static getPlaneImages(): Promise<ImageItem[]> {
+    return new Promise((resolve, reject) => {
+      return []; // muss noch ausformuliert werden
+    });
+  }
+
+  public static updatePlaneDescription(id: string, beschreibung: string): void {
+    console.log("updatePlaneDescription wird noch ergänzt");
+  }
+
+  static updatePlane(id: string, plane: Plane): Promise<Plane> {
+    return new Promise((resolve, reject) => {
+      return Plane.createEmptyPlane(); // muss noch ausformuliert werden
+    });
+  }
+
+  static async createPlaneCollectionBackup(): Promise<void> {}
 }
