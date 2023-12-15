@@ -67,13 +67,13 @@
               <AdminActionBar :plane="plane" @update="getPlanes" />
             </template>
             <v-dialog>
-              <template v-slot:activator="{ on }">
+              <template v-slot:activator="{ props }">
                 <v-img
                   :src="plane.image"
                   class="contImg"
                   width="100%"
                   height="200px"
-                  v-on="on"
+                  v-bind="props"
                 >
                   <v-overlay
                     v-if="plane.crash"
@@ -148,11 +148,17 @@ function getPlanes() {
 }
 
 
-function panelImage(image: UnwrapRef<UnwrapRefSimple<Plane>['image']>): string {
+function panelImage(image: string): string {
   const style =
     "backgroundImage: url(" + image + "); background-size: contain";
   return style;
 }
 </script>
 <style scoped>
+.contImg {
+  width: 100% !important;
+  cursor: pointer;
+  margin: 0 !important;
+  left: 0px;
+}
 </style>
