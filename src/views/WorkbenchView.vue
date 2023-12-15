@@ -12,9 +12,12 @@
       <v-col>
         <template v-if="editPlane">
           <v-card title="Erstelle neues Modell" :subtitle="newPlane.id">
-              <v-form ref="editPlaneForm" >
-                <v-text-field label="Name" :value="newPlane.name" />
+              <v-form ref="editPlaneForm" @submit.prevent="saveNewPlane" >
+                <v-text-field label="Name" v-model="newPlane.name" />
+                <v-spacer />
+                <v-btn text="Speichern" type="submit" />
               </v-form>
+            {{ newPlane}}
           </v-card>
         </template>
       </v-col>
@@ -37,9 +40,13 @@ const editPlane = ref(false);
 
 function createPlane(name: string) {
   console.log("createPlane", name);
-  editPlane.value = true;
   newPlane.value.id = slugifyString(name);
   newPlane.value.name = name;
+  editPlane.value = true;
+}
+
+function saveNewPlane() {
+  console.log("saveNewPlane", newPlane.value);
 }
 </script>
 <style scoped>
