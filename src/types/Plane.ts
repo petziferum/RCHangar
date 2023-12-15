@@ -15,7 +15,7 @@ export default class Plane {
   faktor: number | undefined;
   image: string | undefined;
   beschreibung?: string;
-  log?: LogEntry[];
+  log: LogEntry[];
   crash?: boolean;
 
   constructor(
@@ -30,7 +30,7 @@ export default class Plane {
     faktor: number | undefined,
     image: string | undefined,
     beschreibung: string | undefined,
-    log: LogEntry[] | undefined,
+    log: LogEntry[],
     crash: boolean | undefined
   ) {
     this.name = name;
@@ -130,7 +130,7 @@ export default class Plane {
       obj.faktor || undefined,
       obj.image || undefined,
       obj.beschreibung,
-      logConverterTiemstampToDate(obj.log),
+      logConverterTimestampToDate(obj.log),
       obj.crash
     );
   }
@@ -148,7 +148,7 @@ export default class Plane {
       undefined,
       "",
       undefined,
-      undefined,
+       [],
       undefined
     );
   }
@@ -180,21 +180,17 @@ export const planeConverter = {
 };
 
 const logConverter = (log: Array<LogEntry>): Array<unknown> => {
-  const logArray = [];
+  const logArray: LogEntry[] = [];
   if (log.length > 0) {
     log.forEach((entry) => {
-      logArray.push({
-        date: entry.date,
-        planeId: entry.planeId,
-        text: entry.text,
-      });
+      Object.assign({}, entry);
     });
   }
   return logArray;
 };
 
-const logConverterTiemstampToDate = (array: LogEntry[]): Array<LogEntry> => {
-  const logArray = [];
+const logConverterTimestampToDate = (array: LogEntry[]): Array<LogEntry> => {
+  const logArray: LogEntry[] = [];
   if (array != null) {
     array.forEach((entry) => {
       logArray.push(LogEntry.createLogEntryFromFirestore(entry));

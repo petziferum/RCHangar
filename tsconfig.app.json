@@ -4,6 +4,7 @@
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
+    "noImplicitAny": false,
     "baseUrl": ".",
     "types": ["node","vue3-toastify/global"],
     "paths": {

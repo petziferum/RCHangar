@@ -22,7 +22,7 @@ export default class LogEntry {
   }
 
   public static createEmtptyLogEntry(): LogEntry {
-    return new LogEntry(undefined, undefined, undefined);
+    return new LogEntry(new Date(Date.now()), "", "");
   }
 
   public static createLogEntryFromFirestore(obj: any): LogEntry {
