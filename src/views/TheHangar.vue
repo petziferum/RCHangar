@@ -106,7 +106,7 @@
                 <v-col>
                   <v-card-text
                     class="descriptionBox elevation-4"
-                    v-text="plane.beschreibung"
+                    text="plane.beschreibung"
                   ></v-card-text>
                 </v-col>
               </v-row>
@@ -148,7 +148,7 @@ function getPlanes() {
 }
 
 
-function panelImage(image: string): string {
+function panelImage(image: string | undefined): string {
   const style =
     "backgroundImage: url(" + image + "); background-size: contain";
   return style;
