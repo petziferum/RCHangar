@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import type Plane from '@/types/Plane'
+import Plane from '@/types/Plane'
 import HangarService from '@/api/hangarService.api'
 
-export const usePlaneStore = defineStore('platneStore', () => {
+export const usePlaneStore = defineStore('planeStore', () => {
   const planesList = ref<Plane[]>([])
   const hangarLoading = ref(false)
+  const newPlane = ref<Plane>(Plane.createEmptyPlane().withCrash(false))
 
   function loadAllPlanes() {
     console.log("loadAllPlanes");
@@ -18,6 +19,14 @@ export const usePlaneStore = defineStore('platneStore', () => {
     });
   }
 
+  function addNewPlane(): void {
+    planesList.value.push(newPlane.value);
+    resetNewPlane();
+  }
 
-  return { planesList,hangarLoading, loadAllPlanes }
+  function resetNewPlane(): void {
+    newPlane.value = Plane.createEmptyPlane().withCrash(false);
+  }
+
+  return { planesList,hangarLoading, newPlane, loadAllPlanes, addNewPlane }
 })
