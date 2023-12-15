@@ -23,7 +23,7 @@
   </v-app>
 </template>
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import AppBar from '../src/components/common/AppBar.vue'
 import { onBeforeMount, ref } from 'vue'
 import { fireAuth, fireUser, registerWithGoogle, logOut as outlog } from '@/plugins/firesbaseConfig'

@@ -23,6 +23,7 @@
       <v-spacer />
       <template v-if="user">
         {{ user.email }}
+        <v-icon icon="mdi-logout" class="mx-5" @click="logOut" />
       </template>
       <template v-else>
         <v-btn variant="text" @click="login">Login</v-btn>
@@ -32,16 +33,21 @@
 </template>
 <script lang="ts" setup>
 import { computed } from "vue";
-import { fireUser } from '@/plugins/firesbaseConfig'
+import { logOut as outlog, registerWithGoogle } from '@/plugins/firesbaseConfig'
+import { useUserStore } from '@/stores/userStore'
 
-
+const userState = useUserStore();
 
 const user = computed(() => {
-  return fireUser;
+  return userState.userFirestoreData;
 });
 
+function logOut() {
+  outlog();
+}
+
 function login() {
-  console.log("login");
+  registerWithGoogle();
 }
 </script>
 
