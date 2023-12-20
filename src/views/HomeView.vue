@@ -39,7 +39,7 @@ const planeStore = usePlaneStore();
 </script>
 <style scoped>
 .shadow {
-  box-shadow: inset 0px 50px 50px -20px rgba(0, 0, 0, 0.51);
+
 }
 </style>
 
