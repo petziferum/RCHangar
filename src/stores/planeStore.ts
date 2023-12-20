@@ -7,15 +7,16 @@ export const usePlaneStore = defineStore('planeStore', () => {
   const planesList = ref<Plane[]>([])
   const hangarLoading = ref(false)
   const newPlane = ref<Plane>(Plane.createEmptyPlane().withCrash(false))
+  const editPlane = ref<Plane>()
 
   function loadAllPlanes() {
-    console.log("loadAllPlanes");
+    console.log("loadAllPlanes gestartet");
     hangarLoading.value = true;
     HangarService.getAllPlanes().then((res) => {
       console.log("getPlanes", res);
       planesList.value = res
     }).finally(() => {
-      setTimeout(() => (hangarLoading.value = false), 300);
+      hangarLoading.value = false
     });
   }
 
@@ -28,5 +29,5 @@ export const usePlaneStore = defineStore('planeStore', () => {
     newPlane.value = Plane.createEmptyPlane().withCrash(false);
   }
 
-  return { planesList,hangarLoading, newPlane, loadAllPlanes, addNewPlane }
+  return { planesList,hangarLoading, newPlane, editPlane, loadAllPlanes, addNewPlane }
 })

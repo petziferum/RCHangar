@@ -2,6 +2,15 @@
   <v-container fluid>
     <v-toolbar title="Werkbank">
       <v-spacer />
+      <v-icon v-if="planeStore.hangarLoading" icon="mdi-loading mdi-spin" /> {{ planeStore.planesList.length }}
+      <v-select
+        v-model="planeStore.editPlane"
+        return-object class="mt-5"
+        label="Modell bearbeiten"
+        :loading="planeStore.hangarLoading"
+        :items="planeStore.planesList"
+        item-title="name"
+      @update:focused="startEditing"/>
       <BaseDialog activator-text="Flugzeug erstellen" @create="createPlane" title="Name des Flugzeugs" ref="baseDialog" />
       <v-spacer></v-spacer>
       <v-btn variant="outlined" elevation="2" class="bg-blue-accent-1">
@@ -9,6 +18,10 @@
       </v-btn>
     </v-toolbar>
     <v-row>
+      <v-col>
+        Update Plane: {{ updatePlane }}<br>
+        {{ planeStore.editPlane }}
+      </v-col>
       <v-col>
         <template v-if="editPlane">
           <v-card title="Erstelle neues Modell" :subtitle="'Firebase-ID: ' + newPlane.id">
@@ -50,7 +63,7 @@
 
 <script setup lang="ts">
 import BaseDialog from '@/components/BaseDialog.vue'
-import { ref, watch } from 'vue'
+import { onBeforeMount, ref, watch } from 'vue'
 import Plane from '@/types/Plane'
 import { useUserStore } from '@/stores/userStore'
 import { slugifyString } from '@/plugins/scripts'
@@ -61,6 +74,7 @@ const planeStore = usePlaneStore();
 const newPlane = planeStore.newPlane;
 const baseDialog = ref(null);
 const editPlane = ref(false);
+const updatePlane = ref(false);
 const hint = ref("");
 const showRawData = ref(true);
 
@@ -70,6 +84,16 @@ watch(() => newPlane.name, (newVal) => {
     hint.value = `Achtung, der neue Name: "${newVal}" und ID: "${planeStore.newPlane.id}", weichen voneinander ab.`
   } else hint.value = "";
 })
+
+onBeforeMount(()=> {
+  loadPlanes();
+});
+function startEditing(): void {
+  updatePlane.value = true;
+}
+function loadPlanes(): void {
+  if(planeStore.planesList.length === 0) planeStore.loadAllPlanes();
+}
   function createPlane() {
     console.log("createPlane", newPlane.name);
     editPlane.value = true;
