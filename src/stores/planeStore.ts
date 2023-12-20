@@ -15,7 +15,7 @@ export const usePlaneStore = defineStore('planeStore', () => {
       console.log("getPlanes", res);
       planesList.value = res
     }).finally(() => {
-      setTimeout(() => (hangarLoading.value = false), 3000);
+      setTimeout(() => (hangarLoading.value = false), 300);
     });
   }
 
