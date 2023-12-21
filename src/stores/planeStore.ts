@@ -29,5 +29,9 @@ export const usePlaneStore = defineStore('planeStore', () => {
     newPlane.value = Plane.createEmptyPlane().withCrash(false);
   }
 
-  return { planesList,hangarLoading, newPlane, editPlane, loadAllPlanes, addNewPlane }
+  function getPlanesAsList(): (string | undefined)[] {
+    return planesList.value.map(obj => obj.name);
+  }
+
+  return { planesList,hangarLoading, newPlane, editPlane, loadAllPlanes, addNewPlane, getPlanesAsList }
 })
