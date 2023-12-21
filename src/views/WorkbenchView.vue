@@ -23,11 +23,11 @@
         {{ planeStore.editPlane }}
       </v-col>
       <v-col>
-        <template v-if="addPlane">
-          <v-card title="Erstelle neues Modell" :subtitle="'Firebase-ID: ' + newPlane.id">
+        <template v-if="editPlane">
+          <v-card title="Modell bearbeiten" :subtitle="'Firebase-ID: ' + planeStore.editPlane.id">
             <v-card-text>
               <v-form ref="editPlaneForm" @submit.prevent="saveNewPlane" >
-                <v-text-field label="Name" v-model="newPlane.name" />
+                <v-text-field label="Name" v-model="planeStore.editPlane.name" />
                 <v-alert v-if="hint.length > 0" density="compact" border="start" variant="elevated" class="ma-2" type="warning">
                   <v-tooltip location="bottom">
                     <template #activator="{ props }">
@@ -36,7 +36,7 @@
                     <span>Die ID wird aus dem zuerst gegebenen Namen generiert. Wenn der Name hier geändert wird, bleibt die ID gleich.</span>
                   </v-tooltip>
                 </v-alert>
-                <v-checkbox label="crashed" v-model="newPlane.crash" />
+                <v-checkbox label="crashed" v-model="planeStore.editPlane.crash" />
                 <v-spacer />
                 <v-btn text="Speichern" type="submit" />
               </v-form>
@@ -47,7 +47,7 @@
                 <v-expansion-panel>
                   <v-card>
                     <v-card-text>
-                      <pre>{{ newPlane }}</pre>
+                      <pre>{{ planeStore.editPlane }}</pre>
                     </v-card-text>
                   </v-card>
                 </v-expansion-panel>
@@ -71,14 +71,14 @@ import { usePlaneStore } from '@/stores/planeStore'
 
 const userStore = useUserStore();
 const planeStore = usePlaneStore();
-const newPlane = planeStore.newPlane;
+const newPlane = planeStore.editPlane;
 const baseDialog = ref(null);
-const addPlane = ref(false);
+const editPlane = ref(false);
 const updatePlane = ref(false);
 const hint = ref("");
 const showRawData = ref(true);
 
-watch(() => newPlane.name, (newVal) => {
+watch(() => newPlane!.name, (newVal) => {
   const nameSlug = slugifyString(newVal!);
   if (newPlane.id && nameSlug !== newPlane.id) {
     hint.value = `Achtung, der neue Name: "${newVal}" und ID: "${planeStore.newPlane.id}", weichen voneinander ab.`
@@ -89,20 +89,21 @@ onBeforeMount(()=> {
   loadPlanes();
 });
 function startEditing(): void {
-  updatePlane.value = true;
+  editPlane.value = true;
 }
 function loadPlanes(): void {
   if(planeStore.planesList.length === 0) planeStore.loadAllPlanes();
 }
   function createPlane() {
     console.log("createPlane", newPlane.name);
-    addPlane.value = true;
+    planeStore.editPlane = Object.assign({}, newPlane);
+    editPlane.value = true;
   }
 
   function saveNewPlane() {
     console.log("saveNewPlane", newPlane);
     planeStore.addNewPlane();
-    addPlane.value = false;
+    editPlane.value = false;
   }
 
 </script>

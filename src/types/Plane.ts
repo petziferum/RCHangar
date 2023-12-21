@@ -132,7 +132,7 @@ export default class Plane {
       obj.beschreibung,
       logConverterTimestampToDate(obj.log),
       obj.crash
-    );
+    ).withId(obj.id!);
   }
 
   static createEmptyPlane(): Plane {
