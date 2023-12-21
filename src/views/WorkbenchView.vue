@@ -19,14 +19,14 @@
     </v-toolbar>
     <v-row>
       <v-col>
-        Update Plane: {{ updatePlane }}<br>
+        Update Plane: {{ editPlane }}<br>
         {{ planeStore.editPlane }}
       </v-col>
       <v-col>
         <template v-if="editPlane">
           <v-card title="Modell bearbeiten" :subtitle="'Firebase-ID: ' + planeStore.editPlane.id">
             <v-card-text>
-              <v-form ref="editPlaneForm" @submit.prevent="saveNewPlane" >
+              <v-form ref="editPlaneForm" @submit.prevent="updatePlane" >
                 <v-text-field label="Name" v-model="planeStore.editPlane.name" />
                 <v-alert v-if="hint.length > 0" density="compact" border="start" variant="elevated" class="ma-2" type="warning">
                   <v-tooltip location="bottom">
@@ -37,6 +37,11 @@
                   </v-tooltip>
                 </v-alert>
                 <v-checkbox label="crashed" v-model="planeStore.editPlane.crash" />
+                <v-text-field label="Beschreibung" v-model="planeStore.editPlane.beschreibung" />
+                <v-text-field label="type" v-model="planeStore.editPlane.type" />
+                <v-text-field label="Bauweise" v-model="planeStore.editPlane.bauweise" />
+                <v-text-field label="Spannweite" v-model="planeStore.editPlane.spannweite" />
+                <v-text-field label="gewicht" v-model="planeStore.editPlane.gewicht" />
 
                 <div width="100%" class="text-right">
                   <v-btn color="red" @click="editPlane = false" text="Abbrechen"></v-btn>
@@ -77,7 +82,6 @@ const planeStore = usePlaneStore();
 const newPlane = planeStore.editPlane;
 const baseDialog = ref(null);
 const editPlane = ref(false);
-const updatePlane = ref(false);
 const hint = ref("");
 const showRawData = ref(true);
 
@@ -99,13 +103,13 @@ function loadPlanes(): void {
 }
   function createPlane() {
     console.log("createPlane", newPlane.name);
-    planeStore.editPlane = Object.assign({}, newPlane);
+    planeStore.saveNewPlane();
     editPlane.value = true;
   }
 
-  function saveNewPlane() {
-    console.log("saveNewPlane", newPlane);
-    planeStore.addNewPlane();
+  function updatePlane() {
+    console.log("updatePlane", newPlane);
+    planeStore.updateEditedPlane();
     editPlane.value = false;
   }
 

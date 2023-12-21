@@ -20,9 +20,23 @@ export const usePlaneStore = defineStore('planeStore', () => {
     });
   }
 
-  function addNewPlane(): void {
-    planesList.value.push(newPlane.value);
-    resetNewPlane();
+  function saveNewPlane(): void {
+    hangarLoading.value = true;
+    HangarService.saveNewPlane(newPlane.value).then((res) => {
+      editPlane.value = Object.assign({}, res);
+      resetNewPlane();
+      loadAllPlanes();
+    }).catch(error => {
+      console.log("Fehler beim Speichern", error);
+    }).finally(() => hangarLoading.value = false);
+  }
+
+  function updateEditedPlane(): void {
+    HangarService.updatePlane(newPlane.value.id!, newPlane.value).then((res) => {
+      resetNewPlane();
+      loadAllPlanes();
+    });
+
   }
 
   function resetNewPlane(): void {
@@ -33,5 +47,5 @@ export const usePlaneStore = defineStore('planeStore', () => {
     return planesList.value.map(obj => obj.name);
   }
 
-  return { planesList,hangarLoading, newPlane, editPlane, loadAllPlanes, addNewPlane, getPlanesAsList }
+  return { planesList,hangarLoading, newPlane, editPlane, saveNewPlane, loadAllPlanes, updateEditedPlane, getPlanesAsList }
 })

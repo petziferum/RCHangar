@@ -1,38 +1,40 @@
-import Sender from "@/types/Sender";
-import Battery from "@/types/Battery";
-import LogEntry from "@/types/LogEntry";
+import Sender from '@/types/Sender'
+import Battery from '@/types/Battery'
+import LogEntry from '@/types/LogEntry'
 
 export default class Plane {
-  id: string | undefined;
-  name: string | undefined;
-  sender: Sender | undefined;
-  battery: Battery | undefined;
-  mah: number | undefined;
-  type: string | undefined;
-  bauweise: string | undefined;
-  gewicht: number | undefined;
-  spannweite: number | undefined;
-  faktor: number | undefined;
-  image: string | undefined;
+  id: string;
+  name: string;
+  sender: Sender;
+  battery: Battery;
+  mah: number;
+  type: string;
+  bauweise: string;
+  gewicht: number;
+  spannweite: number;
+  faktor: number;
+  image: string;
   beschreibung?: string;
   log: LogEntry[];
   crash?: boolean;
 
   constructor(
-    name: string | undefined,
-    sender: Sender | undefined,
-    battery: Battery | undefined,
-    mah: number | undefined,
-    type: string | undefined,
-    bauweise: string | undefined,
-    gewicht: number | undefined,
-    spannweite: number | undefined,
-    faktor: number | undefined,
-    image: string | undefined,
+    id: string = '',
+    name: string,
+    sender: Sender,
+    battery: Battery,
+    mah: number,
+    type: string,
+    bauweise: string,
+    gewicht: number,
+    spannweite: number,
+    faktor: number,
+    image: string,
     beschreibung: string | undefined,
     log: LogEntry[],
     crash: boolean | undefined
   ) {
+    this.id = id;
     this.name = name;
     this.sender = sender;
     this.battery = battery;
@@ -119,16 +121,17 @@ export default class Plane {
 
   static createFirePlane(obj: Plane): Plane {
     return new Plane(
-      obj.name || undefined,
-      obj.sender || undefined,
-      obj.battery || undefined,
-      obj.mah || undefined,
-      obj.type || undefined,
-      obj.bauweise || undefined,
-      obj.gewicht || undefined,
-      obj.spannweite || undefined,
-      obj.faktor || undefined,
-      obj.image || undefined,
+      obj.id,
+      obj.name,
+      obj.sender,
+      obj.battery,
+      obj.mah,
+      obj.type,
+      obj.bauweise,
+      obj.gewicht,
+      obj.spannweite,
+      obj.faktor,
+      obj.image,
       obj.beschreibung,
       logConverterTimestampToDate(obj.log),
       obj.crash
@@ -137,20 +140,20 @@ export default class Plane {
 
   static createEmptyPlane(): Plane {
     return new Plane(
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      "",
-      undefined,
-       [],
-      undefined
-    );
+      '',
+      '',
+      Sender.UNKNOWN,
+      Battery.zwei,
+      0,
+      '',
+      '',
+      0,
+      0,
+      0,
+      '',
+      '',
+      [],
+      false);
   }
 }
 export const planeConverter = {
@@ -159,9 +162,9 @@ export const planeConverter = {
     return {
       id: plane.id,
       name: plane.name,
-      sender: plane.sender,
-      battery: plane.battery,
-      mah: plane.mah,
+      sender: plane.sender ? plane.sender : Sender.UNKNOWN,
+      battery: plane.battery ? plane.battery : Battery.zwei,
+      mah: plane.mah ? plane.mah : 0,
       type: plane.type,
       bauweise: plane.bauweise,
       gewicht: plane.gewicht,

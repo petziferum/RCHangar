@@ -1,7 +1,7 @@
 import Plane from '@/types/Plane'
 import { planeConverter } from '@/types/Plane'
-import { getDocs, collection } from 'firebase/firestore'
-import { db } from '@/plugins/firesbaseConfig'
+import { getDocs, doc, setDoc, collection } from 'firebase/firestore'
+import { COLLECTION_NAME, db } from '@/plugins/firesbaseConfig'
 
 
 
@@ -29,16 +29,24 @@ export default class HangarService {
     });
   }
 
-  public static setPlaneSchrott(id: string): Promise<void | Plane> {
+  public static setPlaneSchrott(id: string): Promise<Plane> {
     return new Promise((resolve, reject) => {
       return Plane.createEmptyPlane(); // muss noch ausformuliert werden
     });
   }
 
-  public static saveNewPlane(plane: Plane): Promise<void | Plane> {
-    return new Promise((resolve, reject) => {
-      return Plane.createEmptyPlane(); // muss noch ausformuliert werden
-    });
+  public static async saveNewPlane(plane: Plane): Promise<Plane> {
+    console.log(" speichere mit id: ", plane.id);
+    let id = "";
+    if(plane.id) {
+      id = plane.id;
+    } else return new Promise((reject) => reject);
+      const ref = doc(db, COLLECTION_NAME, id).withConverter(planeConverter);
+      await setDoc(ref, plane)
+        .then(() => {
+          console.log("Document written with ID: ", ref.id);
+          return ref;
+        });
   }
 
   public static uploadPlaneImages(): void {

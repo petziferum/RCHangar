@@ -13,6 +13,7 @@ const firebaseConfig = {
   appId: "1:599803437234:web:9f1e65e4944f3579d8e9ab",
   measurementId: "G-WGCYMBND6Q",
 };
+export const COLLECTION_NAME = "planes";
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
