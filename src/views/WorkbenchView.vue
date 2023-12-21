@@ -37,8 +37,11 @@
                   </v-tooltip>
                 </v-alert>
                 <v-checkbox label="crashed" v-model="planeStore.editPlane.crash" />
-                <v-spacer />
-                <v-btn text="Speichern" type="submit" />
+
+                <div width="100%" class="text-right">
+                  <v-btn color="red" @click="editPlane = false" text="Abbrechen"></v-btn>
+                  <v-btn color="success" text="Speichern" type="submit" />
+                </div>
               </v-form>
             </v-card-text>
             <v-card-item>
