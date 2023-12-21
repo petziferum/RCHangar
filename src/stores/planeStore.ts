@@ -23,7 +23,7 @@ export const usePlaneStore = defineStore('planeStore', () => {
   function saveNewPlane(): void {
     hangarLoading.value = true;
     HangarService.saveNewPlane(newPlane.value).then((res) => {
-      editPlane.value = Object.assign({}, res);
+      editPlane.value = Object.assign({}, res ? res : Plane.createEmptyPlane());
       resetNewPlane();
       loadAllPlanes();
     }).catch(error => {

@@ -2,6 +2,7 @@ import Plane from '@/types/Plane'
 import { planeConverter } from '@/types/Plane'
 import { getDocs, doc, setDoc, collection } from 'firebase/firestore'
 import { COLLECTION_NAME, db } from '@/plugins/firesbaseConfig'
+import { toast } from 'vue3-toastify'
 
 
 
@@ -37,16 +38,16 @@ export default class HangarService {
 
   public static async saveNewPlane(plane: Plane): Promise<Plane> {
     console.log(" speichere mit id: ", plane.id);
+    toast("Speichere Flugzeug", { type: "info" });
     let id = "";
-    if(plane.id) {
+    if (plane.id) {
       id = plane.id;
-    } else return new Promise((reject) => reject);
-      const ref = doc(db, COLLECTION_NAME, id).withConverter(planeConverter);
-      await setDoc(ref, plane)
-        .then(() => {
-          console.log("Document written with ID: ", ref.id);
-          return ref;
-        });
+    } else return Promise.reject();
+
+    const ref = doc(db, COLLECTION_NAME, id).withConverter(planeConverter);
+    await setDoc(ref, plane).then(() => {
+      return plane;
+    });
   }
 
   public static uploadPlaneImages(): void {
