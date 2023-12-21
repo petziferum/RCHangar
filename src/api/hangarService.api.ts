@@ -64,10 +64,8 @@ export default class HangarService {
     console.log("updatePlaneDescription wird noch ergänzt");
   }
 
-  static updatePlane(id: string, plane: Plane): Promise<Plane> {
-    return new Promise((resolve, reject) => {
-      return Plane.createEmptyPlane(); // muss noch ausformuliert werden
-    });
+  static updatePlane(id: string, plane: Plane): Plane {
+    return Plane.createEmptyPlane(); // muss noch ausformuliert werden
   }
 
   static async createPlaneCollectionBackup(): Promise<void> {}

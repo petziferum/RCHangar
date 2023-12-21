@@ -42,7 +42,7 @@
                 <v-text-field label="Bauweise" v-model="planeStore.editPlane.bauweise" />
                 <v-text-field label="Spannweite" v-model="planeStore.editPlane.spannweite" />
                 <v-text-field label="gewicht" v-model="planeStore.editPlane.gewicht" />
-
+                <v-text-field label="faktor" v-model="planeStore.editPlane.faktor" />
                 <div width="100%" class="text-right">
                   <v-btn color="red" @click="editPlane = false" text="Abbrechen"></v-btn>
                   <v-btn color="success" text="Speichern" type="submit" />
@@ -108,7 +108,7 @@ function loadPlanes(): void {
   }
 
   function updatePlane() {
-    console.log("updatePlane", newPlane);
+    console.log("updatePlane", planeStore.editPlane);
     planeStore.updateEditedPlane();
     editPlane.value = false;
   }

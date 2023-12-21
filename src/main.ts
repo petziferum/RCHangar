@@ -16,8 +16,7 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(Vue3Toastify, {
-  autoClose: 3000,
-  theme: "colored",
+  autoClose: 3000
 } as ToastContainerOptions);
 app.use(vuetify)
 app.mount('#app')

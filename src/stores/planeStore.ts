@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import Plane from '@/types/Plane'
 import HangarService from '@/api/hangarService.api'
+import { toast } from 'vue3-toastify'
 
 export const usePlaneStore = defineStore('planeStore', () => {
   const planesList = ref<Plane[]>([])
@@ -32,11 +33,12 @@ export const usePlaneStore = defineStore('planeStore', () => {
   }
 
   function updateEditedPlane(): void {
-    HangarService.updatePlane(newPlane.value.id!, newPlane.value).then((res) => {
+    hangarLoading.value = true;
+    HangarService.updatePlane(editPlane.value.id!, editPlane.value);
       resetNewPlane();
-      loadAllPlanes();
-    });
-
+      console.log("updateEditedPlane");
+      toast("Aktualisieren funktioniert noch nicht: " + editPlane.value.name);
+      hangarLoading.value = false
   }
 
   function resetNewPlane(): void {
