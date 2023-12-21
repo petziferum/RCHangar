@@ -42,10 +42,10 @@ export default class HangarService {
     let id = "";
     if (plane.id) {
       id = plane.id;
-    } else return Promise.reject();
+    } else return Plane.createEmptyPlane().withId("Error: keine ID!");
 
     const ref = doc(db, COLLECTION_NAME, id).withConverter(planeConverter);
-    await setDoc(ref, plane).then(() => {
+    return await setDoc(ref, plane).then(() => {
       return plane;
     });
   }
