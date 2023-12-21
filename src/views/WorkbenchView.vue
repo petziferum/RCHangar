@@ -23,7 +23,7 @@
         {{ planeStore.editPlane }}
       </v-col>
       <v-col>
-        <template v-if="editPlane">
+        <template v-if="addPlane">
           <v-card title="Erstelle neues Modell" :subtitle="'Firebase-ID: ' + newPlane.id">
             <v-card-text>
               <v-form ref="editPlaneForm" @submit.prevent="saveNewPlane" >
@@ -73,7 +73,7 @@ const userStore = useUserStore();
 const planeStore = usePlaneStore();
 const newPlane = planeStore.newPlane;
 const baseDialog = ref(null);
-const editPlane = ref(false);
+const addPlane = ref(false);
 const updatePlane = ref(false);
 const hint = ref("");
 const showRawData = ref(true);
@@ -96,13 +96,13 @@ function loadPlanes(): void {
 }
   function createPlane() {
     console.log("createPlane", newPlane.name);
-    editPlane.value = true;
+    addPlane.value = true;
   }
 
   function saveNewPlane() {
     console.log("saveNewPlane", newPlane);
     planeStore.addNewPlane();
-    editPlane.value = false;
+    addPlane.value = false;
   }
 
 </script>
