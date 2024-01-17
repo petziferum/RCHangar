@@ -36,13 +36,26 @@
                     <span>Die ID wird aus dem zuerst gegebenen Namen generiert. Wenn der Name hier geändert wird, bleibt die ID gleich.</span>
                   </v-tooltip>
                 </v-alert>
-                <v-checkbox label="crashed" v-model="planeStore.editPlane.crash" />
-                <v-text-field label="Beschreibung" v-model="planeStore.editPlane.beschreibung" />
-                <v-text-field label="type" v-model="planeStore.editPlane.type" />
-                <v-text-field label="Bauweise" v-model="planeStore.editPlane.bauweise" />
-                <v-text-field label="Spannweite" v-model="planeStore.editPlane.spannweite" />
-                <v-text-field label="gewicht" v-model="planeStore.editPlane.gewicht" />
-                <v-text-field label="faktor" v-model="planeStore.editPlane.faktor" />
+                <v-row>
+                  <v-col cols="2" style="background-color: lightcoral">
+                    <v-checkbox label="crashed" v-model="planeStore.editPlane.crash" />
+                  </v-col>
+                  <v-col>
+                    <v-text-field label="Beschreibung" v-model="planeStore.editPlane.beschreibung" />
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col><v-text-field label="type" v-model="planeStore.editPlane.type" /></v-col>
+                  <v-col><v-text-field label="Bauweise" v-model="planeStore.editPlane.bauweise" /></v-col>
+                  <v-col><v-text-field label="Spannweite" v-model="planeStore.editPlane.spannweite" /></v-col>
+                </v-row>
+                <v-row>
+                  <v-col><v-text-field label="gewicht" v-model="planeStore.editPlane.gewicht" /></v-col>
+                  <v-col><v-text-field label="faktor" v-model="planeStore.editPlane.faktor" /></v-col>
+                  <v-col><v-select label="Akku" v-model="planeStore.editPlane.battery" /></v-col>
+                  <v-col><v-text-field label="MaH" v-model="planeStore.editPlane.mah" /></v-col>
+                </v-row>
+
                 <div width="100%" class="text-right">
                   <v-btn color="red" @click="editPlane = false" text="Abbrechen"></v-btn>
                   <v-btn color="success" text="Speichern" type="submit" />
