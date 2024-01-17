@@ -25,6 +25,7 @@
       <v-col>
         <template v-if="editPlane">
           <v-card title="Modell bearbeiten" :subtitle="'Firebase-ID: ' + planeStore.editPlane.id">
+              <v-img cover :src="planeStore.editPlane.image" height="400px" />
             <v-card-text>
               <v-form ref="editPlaneForm" @submit.prevent="updatePlane" >
                 <v-text-field label="Name" v-model="planeStore.editPlane.name" />
