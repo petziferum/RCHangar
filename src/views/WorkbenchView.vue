@@ -99,6 +99,10 @@ const editPlane = ref(false);
 const hint = ref("");
 const showRawData = ref(true);
 
+
+//Todo: Battery als Dropdown auswahlfeld einfügen.
+
+
 watch(() => newPlane!.name, (newVal) => {
   const nameSlug = slugifyString(newVal!);
   if (newPlane.id && nameSlug !== newPlane.id) {
