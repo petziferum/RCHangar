@@ -38,8 +38,8 @@
                   </v-tooltip>
                 </v-alert>
                 <v-row>
-                  <v-col cols="2" style="background-color: lightcoral">
-                    <v-checkbox label="crashed" v-model="planeStore.editPlane.crash" />
+                  <v-col cols="2" style="background-image: linear-gradient(45deg, rgb(255,0,141), rgb(28,28,251)); border-radius: 10pt; color: #fff">
+                    <v-checkbox color="white" label="crashed" v-model="planeStore.editPlane.crash" />
                   </v-col>
                   <v-col>
                     <v-text-field label="Beschreibung" v-model="planeStore.editPlane.beschreibung" />
