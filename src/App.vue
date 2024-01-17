@@ -37,7 +37,7 @@ const u = ref(fireUser)
 
 onBeforeMount(() => {
   onAuthStateChanged(fireAuth, (user) => {
-    console.log("Authstate changed", user);
+    console.log("Check login status...", user? "logged in" : "logged out");
 if (user) {
       u.value = user;
       userState.userFirestoreData = user;
