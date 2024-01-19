@@ -64,8 +64,9 @@ export default class HangarService {
     console.log("updatePlaneDescription wird noch ergänzt");
   }
 
-  static updatePlane(id: string, plane: Plane): Plane {
-    return Plane.createEmptyPlane(); // muss noch ausformuliert werden
+  static async updatePlane(plane: Plane): Promise<Plane> {
+    const planeRef = doc(db, COLLECTION_NAME, plane.id).withConverter(planeConverter);
+    return await setDoc(planeRef, plane).then(() => plane);
   }
 
   static async createPlaneCollectionBackup(): Promise<void> {}

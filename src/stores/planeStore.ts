@@ -34,10 +34,10 @@ export const usePlaneStore = defineStore('planeStore', () => {
 
   function updateEditedPlane(): void { //Todo: Update Plane implementieren!
     hangarLoading.value = true;
-    HangarService.updatePlane(editPlane.value.id!, editPlane.value);
+    HangarService.updatePlane(editPlane.value);
       resetNewPlane();
       console.log("updateEditedPlane");
-      toast("Aktualisieren funktioniert noch nicht: " + editPlane.value.name);
+      toast("Aktualisierung durchgeführt: " + editPlane.value.name);
       hangarLoading.value = false
   }
 
