@@ -54,7 +54,7 @@
                   <v-col><v-text-field label="gewicht" v-model="planeStore.editPlane.gewicht" /></v-col>
                   <v-col><v-text-field label="faktor" v-model="planeStore.editPlane.faktor" /></v-col>
                   <v-col><v-select :items="batteries" item-title="text" label="Akku" v-model="planeStore.editPlane.battery" />
-                  {{ batteries }}</v-col>
+                  </v-col>
                   <v-col><v-text-field label="MaH" v-model="planeStore.editPlane.mah" /></v-col>
                 </v-row>
 
