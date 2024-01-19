@@ -53,7 +53,8 @@
                 <v-row>
                   <v-col><v-text-field label="gewicht" v-model="planeStore.editPlane.gewicht" /></v-col>
                   <v-col><v-text-field label="faktor" v-model="planeStore.editPlane.faktor" /></v-col>
-                  <v-col><v-select label="Akku" v-model="planeStore.editPlane.battery" /></v-col>
+                  <v-col><v-select :items="batteries" item-title="text" label="Akku" v-model="planeStore.editPlane.battery" />
+                  {{ batteries }}</v-col>
                   <v-col><v-text-field label="MaH" v-model="planeStore.editPlane.mah" /></v-col>
                 </v-row>
 
@@ -85,11 +86,13 @@
 
 <script setup lang="ts">
 import BaseDialog from '@/components/BaseDialog.vue'
-import { onBeforeMount, ref, watch } from 'vue'
+import { computed, onBeforeMount, ref, watch } from 'vue'
 import Plane from '@/types/Plane'
 import { useUserStore } from '@/stores/userStore'
 import { slugifyString } from '@/plugins/scripts'
 import { usePlaneStore } from '@/stores/planeStore'
+import { batteryAsRecord } from '@/types/Battery'
+
 
 const userStore = useUserStore();
 const planeStore = usePlaneStore();
@@ -98,7 +101,7 @@ const baseDialog = ref(null);
 const editPlane = ref(false);
 const hint = ref("");
 const showRawData = ref(true);
-
+const batteries = batteryAsRecord
 
 //Todo: Battery als Dropdown auswahlfeld einfügen.
 //Todo: Update Plane Funktion einfügen
