@@ -9,7 +9,7 @@
         v-model="orderBy"
         @input="getByOrder"
       ></v-select>
-      <div class="mx-5 text-white">Flugzeuge: {{ planeStore.planesList.length }}</div>
+      <div class="mx-5 text-white">Flugzeuge: {{ planeStore.planesList.length }}, editplane {{ planeStore.editPlane.name }}</div>
     </v-col>
   </v-row>
   <v-row>
@@ -25,7 +25,7 @@
             <v-row>
               <v-fade-transition leave-absolute>
                 <v-col
-                  :cols="expanded ? 2 : 3"
+                  :cols="expanded ? 2 : 6"
                   class="red--text font-weight-bold"
                   style="transform: rotate(-25deg)"
                 ><span v-if="plane.crash">CRASHED</span></v-col
@@ -39,28 +39,32 @@
                 {{ plane.name }}
               </v-col>
               <v-col
-                v-if="isMobile"
+                v-if="!isMobile"
                 cols="3"
                 class="grey--text caption"
               >
                 Gewicht: {{ plane.gewicht }}
               </v-col>
               <v-col
-                v-if="isMobile"
+                v-if="!isMobile"
                 cols="3"
                 class="grey--text caption"
               >
                 Spannweite: {{ plane.spannweite }}
               </v-col>
               <v-col
-                v-if="isMobile"
+                v-if="!isMobile"
                 cols="3"
                 class="grey--text caption"
               >
                 Faktor: {{ plane.faktor }}
               </v-col>
             </v-row>
-            <v-spacer />{{ plane.sender }}
+            <v-spacer />
+            <div>
+              <v-btn icon="mdi-cog" @click.stop="editPlane(plane)"></v-btn>
+
+            </div>
           </v-expansion-panel-title>
           <v-expansion-panel-text>
             <template v-if="adminUser">
@@ -115,6 +119,9 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </template>
+    <v-dialog width="auto" v-model="editDialog" >
+                      <the-edit-plane @cancel="editDialog = false" @save="editDialog = false"/>
+    </v-dialog>
   </v-row>
 </template>
 <script setup lang="ts">
@@ -123,6 +130,7 @@ import { usePlaneStore } from '@/stores/planeStore'
 import { useUserStore } from '@/stores/userStore'
 import { useDisplay } from 'vuetify'
 import Plane from '@/types/Plane'
+import TheEditPlane from '@/components/TheEditPlane.vue'
 const planeStore = usePlaneStore();
 const userStore = useUserStore();
 const orderList = ref(["name", "id", "faktor", "gewicht", "spannweite"])
@@ -134,6 +142,7 @@ const adminUser = computed(() => {
 const isMobile = computed(() => {
   return mobile.value;
 })
+const editDialog = ref(false);
 
 function getByOrder() {
   console.info("order by", orderBy.value);
@@ -143,7 +152,11 @@ function getByOrder() {
 function getPlanes() {
   planeStore.loadAllPlanes();
 }
-
+function editPlane(plane: Plane): void{
+  console.log("edit plane", plane.name);
+  planeStore.editPlane = plane;
+  editDialog.value = true;
+}
 
 function panelImage(image: string | undefined): string {
   const style =
