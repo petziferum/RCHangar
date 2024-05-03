@@ -4,7 +4,7 @@
   <v-main app class="appMain">
   <RouterView />
   </v-main>
-    <v-footer>
+    <v-footer v-if="!loading">
       <div class="footer">
     <div v-if="userState.userFirestoreData">
       fireUser: {{ userState.userFirestoreData }}
@@ -25,15 +25,24 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import AppBar from '../src/components/common/AppBar.vue'
-import { onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import { fireAuth, fireUser, registerWithGoogle, logOut as outlog } from '@/plugins/firesbaseConfig'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useUserStore } from '@/stores/userStore'
+import { usePlaneStore } from '@/stores/planeStore'
 
 
 const userState = useUserStore();
-
+const planeStore = usePlaneStore();
 const u = ref(fireUser)
+const loading = computed(() =>
+{
+  if(userState.userLoading || planeStore.hangarLoading) {
+    return true;
+  } else {
+    return false;
+  }
+});
 
 onBeforeMount(() => {
   onAuthStateChanged(fireAuth, (user) => {
@@ -45,6 +54,7 @@ if (user) {
       u.value= null;
     }
   });
+  planeStore.loadAllPlanes()
 });
 function logOut() {
   outlog();

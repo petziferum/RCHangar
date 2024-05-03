@@ -21,5 +21,5 @@ export const useUserStore = defineStore("userStore", () => {
   function setUserFirestoreData(data: any) {
     userFirestoreData.value = data;
   }
-  return { userFirestoreData, userError, userLoggedIn, setUserFirestoreData, isAdmin };
+  return { userFirestoreData, userLoading, userError, userLoggedIn, setUserFirestoreData, isAdmin };
 });
