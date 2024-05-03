@@ -54,6 +54,7 @@
   </v-card>
 </template>
 <script setup lang=ts>
+//Todo: Wenn nicht angemeldet, keine Bearbeitung möglich und Hinweis geben.
 import { usePlaneStore } from '@/stores/planeStore'
 import { ref } from 'vue'
 import { batteryAsRecord } from '@/types/Battery'

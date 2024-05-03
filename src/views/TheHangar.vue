@@ -126,6 +126,7 @@
   </v-row>
 </template>
 <script setup lang="ts">
+//Todo: Authentifizierung wenn nicht angemeldet keine Bearbeitung möglich.
 import { computed, onBeforeMount, ref, type UnwrapRef } from 'vue'
 import { usePlaneStore } from '@/stores/planeStore'
 import { useUserStore } from '@/stores/userStore'
