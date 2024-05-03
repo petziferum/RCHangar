@@ -103,6 +103,7 @@ const hint = ref("");
 const showRawData = ref(true);
 const batteries = batteryAsRecord
 
+//Todo: EditPlane Komponente verwenden!
 //Todo: Battery als Dropdown auswahlfeld einfügen.
 
 
