@@ -104,7 +104,6 @@ const showRawData = ref(true);
 const batteries = batteryAsRecord
 
 //Todo: Battery als Dropdown auswahlfeld einfügen.
-//Todo: Update Plane Funktion einfügen
 
 
 watch(() => newPlane!.name, (newVal) => {

@@ -12,6 +12,7 @@
       <div class="mx-5 text-white">Flugzeuge: {{ planeStore.planesList.length }}, editplane {{ planeStore.editPlane.name }}</div>
     </v-col>
   </v-row>
+  <!-- Todo: Darstellung der Flugzeuge als v-data-iterator -->
   <v-row>
     <v-icon v-if="planeStore.hangarLoading" class="mx-5" icon="mdi-knob mdi-spin" color="grey" />
     <template v-else>
