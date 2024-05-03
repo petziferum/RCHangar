@@ -8,7 +8,7 @@
       >
     </v-row>
     <v-row justify="center">
-      <v-col cols="12" md="6" lg="4">
+      <v-col cols="12" md="12" lg="12">
         <v-card>
           <v-card-text>
             In dieser App werden alle Flugzeuge aufgelistet, die gerade in

@@ -17,7 +17,7 @@ export const usePlaneStore = defineStore('planeStore', () => {
       console.log("getPlanes", res);
       planesList.value = res
     }).then(() => {
-      hangarLoading.value = false
+      hangarLoading.value = false;
     });
   }
 

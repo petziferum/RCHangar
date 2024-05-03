@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app class="appbar" dark elevation="20">
+  <v-app-bar scroll-behavior="inverted" class="appbar" dark elevation="20">
     <router-link to="/" class="routerlink">
       <v-img
         transition="slide-x-reverse-transition"

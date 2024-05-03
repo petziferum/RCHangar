@@ -2,9 +2,22 @@
   <v-app>
     <app-bar />
   <v-main app class="appMain">
-  <RouterView />
+    <template v-if="!loading">
+      <RouterView />
+    </template>
+    <template v-else>
+      <div style="margin-top: 10em;"></div>
+      lade...<br>
+      <div v-if="userState.userLoading">Benutzer wird geladen <v-icon>mdi-knob mdi-spin</v-icon></div>
+      <div v-else>
+        Flugzeuge werden geladen <v-icon>mdi-knob mdi-spin</v-icon>
+      </div>
+      <v-progress-linear indeterminate color="primary"></v-progress-linear>
+    </template>
   </v-main>
-    <v-footer v-if="!loading">
+
+
+    <v-footer>
       <div class="footer">
     <div v-if="userState.userFirestoreData">
       fireUser: {{ userState.userFirestoreData }}
@@ -50,6 +63,7 @@ onBeforeMount(() => {
 if (user) {
       u.value = user;
       userState.userFirestoreData = user;
+      userState.userLoading = false;
     } else {
       u.value= null;
     }

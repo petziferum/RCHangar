@@ -134,9 +134,6 @@ const adminUser = computed(() => {
 const isMobile = computed(() => {
   return mobile.value;
 })
-onBeforeMount(() => {
-  getPlanes();
-});
 
 function getByOrder() {
   console.info("order by", orderBy.value);

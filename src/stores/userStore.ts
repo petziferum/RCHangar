@@ -6,7 +6,7 @@ export const useUserStore = defineStore("userStore", () => {
   const userFirestoreData = ref<User | null>(null);
   const userLoggedIn = ref(false);
   const user = ref({});
-  const userLoading = ref(false);
+  const userLoading = ref(true);
   const isAdmin = ref(false);
   const userError = ref("");
 
