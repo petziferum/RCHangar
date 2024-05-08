@@ -4,6 +4,7 @@ import { getDocs, doc, setDoc, collection } from 'firebase/firestore'
 import { ref, listAll, getDownloadURL,  ref as fireRef,  uploadBytes, getStorage} from "firebase/storage";
 import { COLLECTION_NAME, db } from '@/plugins/firesbaseConfig'
 import { toast } from 'vue3-toastify'
+import LogEntry from '@/types/LogEntry'
 
 const IMAGE_FOLDER = "planes";
 const storage = getStorage();
@@ -83,6 +84,8 @@ export default class HangarService {
   }
 
   static async updatePlane(plane: Plane): Promise<Plane> {
+    plane.withLastEdit(new Date(Date.now()));
+    plane.addLogEntry(LogEntry.createEmtptyLogEntry().withText("Änderung durchgeführt"));
     const planeRef = doc(db, COLLECTION_NAME, plane.id).withConverter(planeConverter);
     return await setDoc(planeRef, plane).then(() => plane);
   }

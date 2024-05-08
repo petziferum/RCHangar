@@ -25,7 +25,7 @@
       </v-col>
       <v-col>
         <template v-if="editPlane">
-          <the-edit-plane @save="saveEmit"/>
+          <the-edit-plane @save="saveEmit" @cancel="cancel"/>
         </template>
       </v-col>
     </v-row>
@@ -82,6 +82,9 @@ function loadPlanes(): void {
 
   function saveEmit() {
     console.log("updatePlane", planeStore.editPlane);
+    editPlane.value = false;
+  }
+  function cancel() {
     editPlane.value = false;
   }
 

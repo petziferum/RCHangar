@@ -17,6 +17,7 @@ export default class Plane {
   beschreibung?: string;
   log: LogEntry[];
   crash?: boolean;
+  lastEdit?: Date
 
   constructor(
     id: string = '',
@@ -32,7 +33,8 @@ export default class Plane {
     image: string,
     beschreibung: string | undefined,
     log: LogEntry[],
-    crash: boolean | undefined
+    crash: boolean | undefined,
+    lastEdit?: Date
   ) {
     this.id = id;
     this.name = name;
@@ -48,6 +50,7 @@ export default class Plane {
     this.beschreibung = beschreibung;
     this.log = log;
     this.crash = crash;
+    this.lastEdit = lastEdit;
   }
 
   withMah(value: number): Plane {
@@ -119,6 +122,11 @@ export default class Plane {
     this.log.push(value);
   }
 
+  withLastEdit(value: Date): Plane {
+    this.lastEdit = value;
+    return this;
+  }
+
   static createFirePlane(obj: Plane): Plane {
     return new Plane(
       obj.id,
@@ -134,7 +142,8 @@ export default class Plane {
       obj.image,
       obj.beschreibung,
       logConverterTimestampToDate(obj.log),
-      obj.crash
+      obj.crash,
+      obj.lastEdit
     ).withId(obj.id!);
   }
 
@@ -174,6 +183,7 @@ export const planeConverter = {
       beschreibung: plane.beschreibung,
       log: logConverter(plane.log),
       crash: plane.crash,
+      lastEdit: new Date(Date.now()),
     };
   },
   fromFirestore: (snapshot, options) => {
