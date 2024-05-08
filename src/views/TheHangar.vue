@@ -120,7 +120,7 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </template>
-    <v-dialog width="auto" v-model="editDialog" >
+    <v-dialog width="100%" v-model="editDialog" >
                       <the-edit-plane @cancel="editDialog = false" @save="editDialog = false"/>
     </v-dialog>
   </v-row>

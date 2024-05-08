@@ -1,9 +1,9 @@
 <template>
   <v-card variant="outlined">
-    <v-card-title>Photo Selction</v-card-title>
+    <v-card-title>Photo Selection</v-card-title>
     <v-card-text>
       <div class="imageGrid">
-        <div class="elevatetImage" v-for="img in imageList" :key="img">
+        <div class="elevatetImage" v-for="img in planeStore.getAllImages" :key="img">
           <v-img :src="img" cover>
             <v-btn
               variant="tonal"
@@ -19,14 +19,10 @@
   </v-card>
 </template>
 <script setup lang="ts">
-import { computed, onBeforeMount, ref } from "vue";
+import { onBeforeMount } from "vue";
 import { usePlaneStore } from '@/stores/planeStore'
 
 const planeStore = usePlaneStore();
-
-const imageList = computed(() => {
-  return planeStore.images;
-});
 
 onBeforeMount(() => {
   planeStore.fetchAllImages();
@@ -40,7 +36,7 @@ function selectImageForRecipe(url: string) {
 .imageGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 10px; /* Adjust the gap between grid items */
+  gap: 10px;
 }
 .elevatetImage {
   display: flex;

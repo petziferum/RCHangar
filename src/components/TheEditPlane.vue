@@ -11,8 +11,10 @@
       >{{ entry.text }}</v-btn
       >
     </v-card-text>
+    <v-card-text>
       <component :is="currentComponent" />
       ImageSrc: {{ planeStore.editPlane.image }}
+    </v-card-text>
     <v-card-text>
       <v-form ref="editPlaneForm" @submit.prevent="updatePlane" >
         <v-text-field label="Name" v-model="planeStore.editPlane.name" />
@@ -94,6 +96,7 @@ function cancel() {
   emit("cancel");
 }
 function setPhotoComponent(component: any): void {
+  console.log("setPhotoComponent", component)
   currentComponent.value = component;
 }
 </script>

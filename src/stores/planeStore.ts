@@ -42,11 +42,12 @@ export const usePlaneStore = defineStore('planeStore', () => {
     newPlane.value = Plane.createEmptyPlane().withCrash(false);
   }
   function updateImage(image: string) {
-    console.log("update image", image);
-    console.log("editRecipe", editPlane.value);
+    console.log("update image", image, " for Plane: ", editPlane.value.name);
     editPlane.value.image = image;
   }
   function fetchAllImages() {
+    if(images.value.length > 0) return;
+    else {
     HangarService.getAllImages()
       .then((res) => {
         images.value = res;
@@ -54,7 +55,8 @@ export const usePlaneStore = defineStore('planeStore', () => {
       .catch((err) => {
         console.log(err);
       });
-  };
+    }
+  }
 
   const getPlanesAsList = computed(() => {
     const sortedPlanes = planesList.value.slice().sort((a, b) => a.name.localeCompare(b.name));
@@ -65,6 +67,9 @@ export const usePlaneStore = defineStore('planeStore', () => {
   const getSortedPlanes = computed(() => {
     return planesList.value.slice().sort((a, b) => a.name.localeCompare(b.name));
   })
+  const getAllImages = computed(() => {
+    return images.value;
+  })
 
-  return { planesList,hangarLoading, newPlane, editPlane, images, saveNewPlane, loadAllPlanes, updateEditedPlane, updateImage, fetchAllImages, getPlanesAsList, getSortedPlanes }
+  return { planesList,hangarLoading, newPlane, editPlane, images, saveNewPlane, loadAllPlanes, updateEditedPlane, updateImage, fetchAllImages, getPlanesAsList, getSortedPlanes, getAllImages, resetNewPlane}
 })

@@ -98,7 +98,8 @@ const uploadImage = async () => {
   }
   planeStore.hangarLoading = true;
   await ApiService.uploadImage(file).then((url) => {
-    planeStore.updateImage(url);
+    if(url) {
+    planeStore.updateImage(url!);
     toast.success("File uploaded! \n" + `${url}`, {
       icon: "mdi-fire",
       dangerouslyHTMLString: true,
@@ -107,7 +108,9 @@ const uploadImage = async () => {
       type: "success",
       message: `Datei unter ${url} hochgeladen.`,
     };
-    reset();
+  } else {
+      return;
+    }
   });
 };
 const reset = () => {
