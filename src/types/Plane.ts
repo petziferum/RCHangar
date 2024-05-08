@@ -192,13 +192,16 @@ export const planeConverter = {
   },
 };
 
-const logConverter = (log: Array<LogEntry>): Array<unknown> => {
-  const logArray: LogEntry[] = [];
-  if (log.length > 0) {
-    log.forEach((entry) => {
-      Object.assign({}, entry);
-    });
-  }
+const logConverter = (log: LogEntry[]): unknown[] => {
+  const logArray: unknown[] = [];
+  log.forEach((entry) => {
+    const plainObject = {
+      date: entry.date,
+      planeId: entry.planeId,
+      text: entry.text
+    };
+    logArray.push(plainObject);
+  });
   return logArray;
 };
 

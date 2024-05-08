@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import Plane from '@/types/Plane'
 import HangarService from '@/api/hangarService.api'
 import { toast } from 'vue3-toastify'
+import LogEntry from '@/types/LogEntry'
 
 export const usePlaneStore = defineStore('planeStore', () => {
   const planesList = ref<Plane[]>([])
@@ -33,6 +34,8 @@ export const usePlaneStore = defineStore('planeStore', () => {
   }
   function updateEditedPlane(): void {
     hangarLoading.value = true;
+    editPlane.value.withLastEdit(new Date(Date.now()));
+    editPlane.value.addLogEntry(LogEntry.createEmtptyLogEntry().withPlaneId(editPlane.value.id).withDate(new Date(Date.now())).withText("Änderung durchgeführt"));
     HangarService.updatePlane(editPlane.value);
       resetNewPlane();
       toast("Aktualisierung durchgeführt: " + editPlane.value.name);

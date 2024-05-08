@@ -84,8 +84,7 @@ export default class HangarService {
   }
 
   static async updatePlane(plane: Plane): Promise<Plane> {
-    plane.withLastEdit(new Date(Date.now()));
-    plane.addLogEntry(LogEntry.createEmtptyLogEntry().withText("Änderung durchgeführt"));
+
     const planeRef = doc(db, COLLECTION_NAME, plane.id).withConverter(planeConverter);
     return await setDoc(planeRef, plane).then(() => plane);
   }
