@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import Plane from '@/types/Plane'
 import HangarService from '@/api/hangarService.api'
 import { toast } from 'vue3-toastify'
@@ -44,9 +44,16 @@ export const usePlaneStore = defineStore('planeStore', () => {
     newPlane.value = Plane.createEmptyPlane().withCrash(false);
   }
 
-  function getPlanesAsList(): (string | undefined)[] {
-    return planesList.value.map(obj => obj.name);
-  }
+  const getPlanesAsList = computed(() => {
+    const sortedPlanes = planesList.value.slice().sort((a, b) => a.name.localeCompare(b.name));
+    const listOfPlaneNames = sortedPlanes.map(obj => obj.name);
 
-  return { planesList,hangarLoading, newPlane, editPlane, saveNewPlane, loadAllPlanes, updateEditedPlane, getPlanesAsList }
+    return listOfPlaneNames;
+  });
+
+  const getSortedPlanes = computed(() => {
+    return planesList.value.slice().sort((a, b) => a.name.localeCompare(b.name));
+  })
+
+  return { planesList,hangarLoading, newPlane, editPlane, saveNewPlane, loadAllPlanes, updateEditedPlane, getPlanesAsList, getSortedPlanes }
 })

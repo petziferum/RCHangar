@@ -17,7 +17,7 @@
     <v-icon v-if="planeStore.hangarLoading" class="mx-5" icon="mdi-knob mdi-spin" color="grey" />
     <template v-else>
       <v-expansion-panels>
-        <v-expansion-panel v-for="plane in planeStore.planesList" :key="plane.id">
+        <v-expansion-panel v-for="plane in planeStore.getSortedPlanes" :key="plane.id">
           <v-expansion-panel-title
             ripple
             :style="panelImage(plane.image)"
@@ -127,7 +127,7 @@
 </template>
 <script setup lang="ts">
 //Todo: Authentifizierung wenn nicht angemeldet keine Bearbeitung möglich.
-import { computed, onBeforeMount, ref, type UnwrapRef } from 'vue'
+import { computed, ref } from 'vue'
 import { usePlaneStore } from '@/stores/planeStore'
 import { useUserStore } from '@/stores/userStore'
 import { useDisplay } from 'vuetify'
@@ -149,7 +149,7 @@ const editDialog = ref(false);
 function getByOrder() {
   console.info("order by", orderBy.value);
   getPlanes();
-};
+}
 
 function getPlanes() {
   planeStore.loadAllPlanes();

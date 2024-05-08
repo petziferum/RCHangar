@@ -27,7 +27,7 @@
             <v-btn @click="planeStore.loadAllPlanes()">get planes</v-btn>
             <v-icon v-if="planeStore.hangarLoading" class="mx-5" icon="mdi-knob mdi-spin" color="grey" />
           </v-card-text>
-          <v-data-table v-if="!planeStore.hangarLoading" :items="planeStore.planesList" density="compact" />
+          <v-data-table v-if="!planeStore.hangarLoading" :items="planeStore.getSortedPlanes" density="compact" />
         </v-card>
       </v-col>
     </v-row>
@@ -39,7 +39,7 @@ const planeStore = usePlaneStore();
 </script>
 <style scoped>
 .shadow {
-
+ box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
 }
 </style>
 
