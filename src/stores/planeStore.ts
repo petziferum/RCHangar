@@ -44,6 +44,8 @@ export const usePlaneStore = defineStore('planeStore', () => {
   function updateImage(image: string) {
     console.log("update image", image, " for Plane: ", editPlane.value.name);
     editPlane.value.image = image;
+    updateEditedPlane();
+    hangarLoading.value = false;
   }
   function fetchAllImages() {
     if(images.value.length > 0) return;

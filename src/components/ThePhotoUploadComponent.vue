@@ -37,6 +37,7 @@
       <v-card-actions>
         <v-btn
           @click="uploadImage"
+          :disabled="notValid"
           block
           elevation="5"
           style="background-color: #699fda; color: white"
@@ -60,13 +61,11 @@ import { usePlaneStore } from '@/stores/planeStore'
 
 const fileRules = [(v) => !!v || "File is required"];
 const fileinput = ref();
-const storage = getStorage();
 const uploadStatus = ref<UploadStatus | null>(null);
-const loading = ref(false);
 const imgsrc = ref("");
-const MAX_FILE_SIZE = 8 * 1024 * 1024; // 10MB
-const folder = "recipes/";
+const MAX_FILE_SIZE = 8 * 1024 * 1024; //10MB
 const planeStore = usePlaneStore();
+const notValid = ref(false);
 
 const onFileInput = () => {
   const input = fileinput.value;
