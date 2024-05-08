@@ -62,9 +62,8 @@
               </v-col>
             </v-row>
             <v-spacer />
-            <div>
+            <div v-if="userStore.isAdmin">
               <v-btn icon="mdi-cog" @click.stop="editPlane(plane)"></v-btn>
-
             </div>
           </v-expansion-panel-title>
           <v-expansion-panel-text>
@@ -127,6 +126,8 @@
 </template>
 <script setup lang="ts">
 //Todo: Authentifizierung wenn nicht angemeldet keine Bearbeitung möglich.
+//Todo: Manche Flugzeuge habe kein Vorschaubild, es ist jedoch in der Datenbank vorhanden.
+//Todo: Sortierfunktion muss noch eingebaut werden.
 import { computed, ref } from 'vue'
 import { usePlaneStore } from '@/stores/planeStore'
 import { useUserStore } from '@/stores/userStore'
