@@ -1,10 +1,18 @@
 <template>
   <v-card title="Modell bearbeiten" :subtitle="'Firebase-ID: ' + planeStore.editPlane.id">
     <v-img cover :src="planeStore.editPlane.image" height="400px" />
-    <v-card-text>
+    <v-card-text class="my-5 bg-blue-accent-1">
+      <v-btn
+        v-for="(entry, index) in components"
+        variant="outlined"
+        elevation="2"
+        :key="index"
+        @click="setPhotoComponent(entry.component)"
+      >{{ entry.text }}</v-btn
+      >
+    </v-card-text>
       <component :is="currentComponent" />
       ImageSrc: {{ planeStore.editPlane.image }}
-    </v-card-text>
     <v-card-text>
       <v-form ref="editPlaneForm" @submit.prevent="updatePlane" >
         <v-text-field label="Name" v-model="planeStore.editPlane.name" />
@@ -62,6 +70,8 @@
 import { usePlaneStore } from '@/stores/planeStore'
 import { ref } from 'vue'
 import { batteryAsRecord } from '@/types/Battery'
+import photoSelectComponent from '@/components/photoSelectComponent.vue'
+import ThePhotoUploadComponent from '@/components/ThePhotoUploadComponent.vue'
 
 const emit = defineEmits(["cancel", "save"]);
 const planeStore = usePlaneStore();
@@ -82,6 +92,9 @@ function updatePlane() {
 }
 function cancel() {
   emit("cancel");
+}
+function setPhotoComponent(component: any): void {
+  currentComponent.value = component;
 }
 </script>
 <style scoped>
