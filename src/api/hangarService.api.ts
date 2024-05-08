@@ -1,7 +1,7 @@
 import Plane from '@/types/Plane'
 import { planeConverter } from '@/types/Plane'
 import { getDocs, doc, setDoc, collection } from 'firebase/firestore'
-import { getDownloadURL,  ref as fireRef,  uploadBytes, getStorage} from "firebase/storage";
+import { ref, listAll, getDownloadURL,  ref as fireRef,  uploadBytes, getStorage} from "firebase/storage";
 import { COLLECTION_NAME, db } from '@/plugins/firesbaseConfig'
 import { toast } from 'vue3-toastify'
 
@@ -65,10 +65,17 @@ export default class HangarService {
     }
   }
 
-  public static getPlaneImages(): Promise<ImageItem[]> {
-    return new Promise((resolve, reject) => {
-      return []; // muss noch ausformuliert werden
-    });
+  public static getAllImages(): Promise<string[]> {
+    const recipeRef = ref(storage, IMAGE_FOLDER);
+    return listAll(recipeRef)
+      .then((res) => {
+        const urlPromises = res.items.map((itemRef) => getDownloadURL(itemRef));
+        return Promise.all(urlPromises);
+      })
+      .catch((error) => {
+        console.log("error", error);
+        return [];
+      });
   }
 
   public static updatePlaneDescription(id: string, beschreibung: string): void {

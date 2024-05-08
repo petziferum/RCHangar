@@ -70,7 +70,10 @@ const editPlane = ref(false);
 const showRawData = ref(true);
 const batteries = batteryAsRecord
 const currentComponent = ref(null);
-
+const components = [
+  { text: "Select Photo", component: photoSelectComponent },
+  { text: "Upload new Photo", component: ThePhotoUploadComponent },
+];
 function updatePlane() {
   console.log("updatePlane", planeStore.editPlane);
   planeStore.updateEditedPlane();

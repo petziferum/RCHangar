@@ -9,6 +9,7 @@ export const usePlaneStore = defineStore('planeStore', () => {
   const hangarLoading = ref(false)
   const newPlane = ref<Plane>(Plane.createEmptyPlane().withCrash(false))
   const editPlane = ref<Plane>(Plane.createEmptyPlane().withCrash(false))
+  const images = ref<string[]>([])
 
   function loadAllPlanes() {
     console.log("loadAllPlanes gestartet");
@@ -45,6 +46,15 @@ export const usePlaneStore = defineStore('planeStore', () => {
     console.log("editRecipe", editPlane.value);
     editPlane.value.image = image;
   }
+  function fetchAllImages() {
+    HangarService.getAllImages()
+      .then((res) => {
+        images.value = res;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const getPlanesAsList = computed(() => {
     const sortedPlanes = planesList.value.slice().sort((a, b) => a.name.localeCompare(b.name));
@@ -56,5 +66,5 @@ export const usePlaneStore = defineStore('planeStore', () => {
     return planesList.value.slice().sort((a, b) => a.name.localeCompare(b.name));
   })
 
-  return { planesList,hangarLoading, newPlane, editPlane, saveNewPlane, loadAllPlanes, updateEditedPlane, updateImage, getPlanesAsList, getSortedPlanes }
+  return { planesList,hangarLoading, newPlane, editPlane, images, saveNewPlane, loadAllPlanes, updateEditedPlane, updateImage, fetchAllImages, getPlanesAsList, getSortedPlanes }
 })
