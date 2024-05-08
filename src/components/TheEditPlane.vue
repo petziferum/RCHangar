@@ -2,6 +2,10 @@
   <v-card title="Modell bearbeiten" :subtitle="'Firebase-ID: ' + planeStore.editPlane.id">
     <v-img cover :src="planeStore.editPlane.image" height="400px" />
     <v-card-text>
+      <component :is="currentComponent" />
+      ImageSrc: {{ planeStore.editPlane.image }}
+    </v-card-text>
+    <v-card-text>
       <v-form ref="editPlaneForm" @submit.prevent="updatePlane" >
         <v-text-field label="Name" v-model="planeStore.editPlane.name" />
         <v-alert v-if="hint.length > 0" density="compact" border="start" variant="elevated" class="ma-2" type="warning">
@@ -65,6 +69,7 @@ const hint = ref("");
 const editPlane = ref(false);
 const showRawData = ref(true);
 const batteries = batteryAsRecord
+const currentComponent = ref(null);
 
 function updatePlane() {
   console.log("updatePlane", planeStore.editPlane);
