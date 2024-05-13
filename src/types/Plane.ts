@@ -1,10 +1,14 @@
 import Sender from '@/types/Sender'
 import Battery from '@/types/Battery'
 import LogEntry from '@/types/LogEntry'
+import User from '@/types/User'
+
+
 
 export default class Plane {
   id: string;
   name: string;
+  owner: User;
   sender: Sender;
   battery: Battery;
   mah: number;
@@ -22,6 +26,7 @@ export default class Plane {
   constructor(
     id: string = '',
     name: string,
+    owner: User,
     sender: Sender,
     battery: Battery,
     mah: number,
@@ -38,6 +43,7 @@ export default class Plane {
   ) {
     this.id = id;
     this.name = name;
+    this.owner = owner;
     this.sender = sender;
     this.battery = battery;
     this.mah = mah;
@@ -51,6 +57,11 @@ export default class Plane {
     this.log = log;
     this.crash = crash;
     this.lastEdit = lastEdit;
+  }
+
+  withOwner(value: User): Plane {
+    this.owner = value;
+    return this;
   }
 
   withMah(value: number): Plane {
@@ -131,6 +142,7 @@ export default class Plane {
     return new Plane(
       obj.id,
       obj.name,
+      obj.owner,
       obj.sender,
       obj.battery,
       obj.mah,
@@ -151,6 +163,7 @@ export default class Plane {
     return new Plane(
       '',
       '',
+      User.createEmptyUser(),
       Sender.UNKNOWN,
       Battery.zwei,
       0,
@@ -165,12 +178,26 @@ export default class Plane {
       false);
   }
 }
+
+function ownerConverter(owner: User) {
+  const plainObject =
+    {
+      id: owner.id,
+      name: owner.name,
+      displayName: owner.displayName,
+      email: owner.email,
+      isAdmin: owner.isAdmin
+    }
+  return plainObject;
+}
+
 export const planeConverter = {
   toFirestore: function (plane) {
     console.log("Converter gestartet für ", plane);
     return {
-      id: plane.id,
+      id: "",
       name: plane.name,
+      owner: {},
       sender: plane.sender ? plane.sender : Sender.UNKNOWN,
       battery: plane.battery ? plane.battery : Battery.zwei,
       mah: plane.mah ? plane.mah : 0,
@@ -181,7 +208,7 @@ export const planeConverter = {
       faktor: plane.faktor,
       image: plane.image,
       beschreibung: plane.beschreibung,
-      log: logConverter(plane.log),
+      log: [],
       crash: plane.crash,
       lastEdit: new Date(Date.now()),
     };

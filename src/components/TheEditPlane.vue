@@ -1,5 +1,8 @@
 <template>
   <v-card title="Modell bearbeiten" :subtitle="'Firebase-ID: ' + planeStore.editPlane.id">
+    <v-card-subtitle v-if="allowSetOwner()" class="py-5">
+      <v-btn @click="setOwner" variant="outlined">set me as Owner</v-btn>
+    </v-card-subtitle>
     <v-img cover :src="planeStore.editPlane.image" height="400px" />
     <v-card-text class="my-5 bg-blue-accent-1">
       <v-btn
@@ -68,15 +71,16 @@
   </v-card>
 </template>
 <script setup lang=ts>
-//Todo: Wenn nicht angemeldet, keine Bearbeitung möglich und Hinweis geben.
 import { usePlaneStore } from '@/stores/planeStore'
 import { ref } from 'vue'
 import { batteryAsRecord } from '@/types/Battery'
 import photoSelectComponent from '@/components/photoSelectComponent.vue'
 import ThePhotoUploadComponent from '@/components/ThePhotoUploadComponent.vue'
+import { useUserStore } from '@/stores/userStore'
 
 const emit = defineEmits(["cancel", "save"]);
 const planeStore = usePlaneStore();
+const userStore = useUserStore();
 const hint = ref("");
 const editPlane = ref(false);
 const showRawData = ref(true);
@@ -86,8 +90,19 @@ const components = [
   { text: "Select Photo", component: photoSelectComponent },
   { text: "Upload new Photo", component: ThePhotoUploadComponent },
 ];
+function allowSetOwner() {
+  const hasCriticalData = userStore.appUser && planeStore.editPlane;
+  const isAdmin = userStore.appUser.isAdmin;
+  const noOwnerOrCurrentUserIsNotOwner = !planeStore.editPlane?.owner || planeStore.editPlane.owner.id !== userStore.appUser.id;
+
+  return isAdmin && hasCriticalData && noOwnerOrCurrentUserIsNotOwner;
+}
+
+
+function setOwner() {
+  planeStore.setOwnerToEditPlane();
+}
 function updatePlane() {
-  console.log("updatePlane", planeStore.editPlane);
   planeStore.updateEditedPlane();
   editPlane.value = false;
   emit("save")

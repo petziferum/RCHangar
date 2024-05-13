@@ -4,6 +4,7 @@ import Plane from '@/types/Plane'
 import HangarService from '@/api/hangarService.api'
 import { toast } from 'vue3-toastify'
 import LogEntry from '@/types/LogEntry'
+import { useUserStore } from '@/stores/userStore'
 
 export const usePlaneStore = defineStore('planeStore', () => {
   const planesList = ref<Plane[]>([])
@@ -62,6 +63,10 @@ export const usePlaneStore = defineStore('planeStore', () => {
       });
     }
   }
+  function setOwnerToEditPlane() {
+    editPlane.value.owner = useUserStore().appUser;
+    updateEditedPlane();
+  }
 
   const getPlanesAsList = computed(() => {
     const sortedPlanes = planesList.value.slice().sort((a, b) => a.name.localeCompare(b.name));
@@ -76,5 +81,5 @@ export const usePlaneStore = defineStore('planeStore', () => {
     return images.value;
   })
 
-  return { planesList,hangarLoading, newPlane, editPlane, images, saveNewPlane, loadAllPlanes, updateEditedPlane, updateImage, fetchAllImages, getPlanesAsList, getSortedPlanes, getAllImages, resetNewPlane}
+  return { planesList,hangarLoading, newPlane, editPlane, images, saveNewPlane, loadAllPlanes, updateEditedPlane, updateImage, fetchAllImages, setOwnerToEditPlane, getPlanesAsList, getSortedPlanes, getAllImages, resetNewPlane}
 })
