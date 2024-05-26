@@ -18,7 +18,9 @@
     <v-footer>
       <div class="footer">
     <div v-if="userState.userFirestoreData">
-      {{ userState.userFirestoreData.email}}
+      {{ userState.userFirestoreData.email}}<br />
+      {{ userState.appUser.id }}<br />
+      {{ userState.isAdmin }}<br />
       <div v-if="userState.isAdmin">
         ADMIN <v-icon color="yellow">mdi-account</v-icon>
       </div>
