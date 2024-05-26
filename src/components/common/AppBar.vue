@@ -19,7 +19,6 @@
         <v-tab v-show="user" to="/werkbank">Werkbank</v-tab>
         <v-tab to="/hangar">Hangar</v-tab>
       </v-tabs>
-
       <v-spacer />
       <template v-if="user">
         {{ user.email }}
@@ -57,7 +56,6 @@ function login() {
   color: white;
 }
 .logo {
-  position: absolute;
   border: 0;
   right: 10px;
   top: 50px;

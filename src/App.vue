@@ -15,12 +15,10 @@
       <v-progress-linear indeterminate color="primary"></v-progress-linear>
     </template>
   </v-main>
-
-
     <v-footer>
       <div class="footer">
     <div v-if="userState.userFirestoreData">
-      fireUser: {{ userState.userFirestoreData }}
+      {{ userState.userFirestoreData.email}}
       <div v-if="userState.isAdmin">
         ADMIN <v-icon color="yellow">mdi-account</v-icon>
       </div>
@@ -77,12 +75,12 @@ function logOut() {
 <style scoped>
 .footer {
   height: 300px;
+  max-width: 90%;
   align-content: center;
   margin-top: 5px;
 }
 .appMain {
   z-index: 5;
-  padding: 101px;
   background-color: #5a664b;
   border: 0px solid #00664b;
   box-shadow: 0px 25px 20px -2px rgba(0,0,0,0.5);
