@@ -1,12 +1,11 @@
 <template>
   <v-app>
     <app-bar />
-  <v-main app class="appMain">
+  <v-main app class="appMain" :class="appStore.mobile ? 'mobile' : 'desktop'">
     <template v-if="!loading">
       <RouterView />
     </template>
     <template v-else>
-      <div style="margin-top: 10em;"></div>
       lade...<br>
       <div v-if="userState.userLoading">Benutzer wird geladen <v-icon>mdi-knob mdi-spin</v-icon></div>
       <div v-else>
@@ -43,8 +42,10 @@ import { fireAuth, fireUser, registerWithGoogle, logOut as outlog } from '@/plug
 import { onAuthStateChanged } from 'firebase/auth'
 import { useUserStore } from '@/stores/userStore'
 import { usePlaneStore } from '@/stores/planeStore'
+import { useAppStore } from '@/stores/appStore'
 
 
+const appStore = useAppStore();
 const userState = useUserStore();
 const planeStore = usePlaneStore();
 const u = ref(fireUser)
@@ -69,12 +70,22 @@ if (user) {
     }
   });
   planeStore.loadAllPlanes()
+
 });
 function logOut() {
   outlog();
 }
 </script>
 <style scoped>
+.mobile {
+  margin-left: 0;
+  margin-right: 0;
+}
+.desktop {
+  padding-top: 10em;
+  padding-left: 3em;
+  padding-right: 3em;
+}
 .footer {
   height: 300px;
   max-width: 90%;

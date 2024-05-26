@@ -63,7 +63,7 @@
             </v-row>
             <v-spacer />
             <div v-if="userStore.appUser.isAdmin">
-              <v-btn icon="mdi-cog" @click.stop="editPlane(plane)"></v-btn>
+              <v-btn size="small" icon="mdi-cog" @click.stop="editPlane(plane)"></v-btn>
             </div>
           </v-expansion-panel-title>
           <v-expansion-panel-text>
