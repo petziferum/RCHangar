@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <app-bar />
-  <v-main app class="appMain" :class="appStore.mobile ? 'mobile' : 'desktop'">
+  <v-main app :class="['appMain', appStore.mobile ? 'mobile' : 'desktop']">
     <template v-if="!loading">
       <RouterView />
     </template>
@@ -80,7 +80,7 @@ function logOut() {
 </script>
 <style scoped>
 .mobile {
-  margin-left: 0;
+margin-left: 0;
   margin-right: 0;
 }
 .desktop {
@@ -96,13 +96,12 @@ function logOut() {
 }
 .appMain {
   z-index: 5;
-  padding: 101px;
   background: #5a664b url('https://firebasestorage.googleapis.com/v0/b/hangar-7334.appspot.com/o/images%2FHimmel.jpg?alt=media&token=c90e264f-699b-4add-b042-84d1b97c59f2') repeat-y center center;
   background-size: 200%;
   background-attachment: fixed;
   border: 0px solid #00664b;
   box-shadow: 0px 25px 20px -2px rgba(0,0,0,0.5);
-  border-radius: 20px;
+  border-radius: 25px;
   height: 100%;
   width: 100%;
 }
