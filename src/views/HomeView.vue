@@ -32,7 +32,7 @@
             <v-data-iterator
               :items="planeStore.getSortedPlanes"
               :items-per-page="itemsPerPage"
-              :page="page" >
+              :page="page">
               <template #header="{ page, pageCount, prevPage, nextPage}">
                 <v-toolbar>
                 <v-btn @click="prevPage" :disabled="page === 1">prev</v-btn>
@@ -49,7 +49,27 @@
                 <v-row>
                   <v-col cols="12" md="6" lg="3" v-for="(plane, i) in items" :key="i">
                     <v-card>
-                      <v-img :src="plane.raw.image" height="200px" />
+                      <v-dialog>
+                        <template v-slot:activator="{ props }">
+                          <v-img
+                            :src="plane.raw.image"
+                            class="contImg"
+                            width="100%"
+                            height="200px"
+                            v-bind="props"
+                          >
+                            <v-overlay
+                              v-if="plane.raw.crash"
+                              color="red"
+                              absolute
+                              class="red--text text-h1"
+                            >
+                              Schrott
+                            </v-overlay>
+                          </v-img>
+                        </template>
+                        <v-img :src="plane.raw.image" width="100%"></v-img>
+                      </v-dialog>
                       <v-card-title>{{ plane.raw.name }}</v-card-title>
                       <v-card-text>
                         <v-row>
@@ -93,6 +113,12 @@ const seeAll = () => {
 <style scoped>
 .shadow {
  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
+}
+.contImg {
+  width: 100% !important;
+  cursor: pointer;
+  margin: 0 !important;
+  left: 0px;
 }
 </style>
 
