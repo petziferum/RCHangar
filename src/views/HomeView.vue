@@ -28,6 +28,7 @@
             <v-icon v-if="planeStore.hangarLoading" class="mx-5" icon="mdi-knob mdi-spin" color="grey" />
           </v-card-text>
           <v-card-text>
+
             <v-data-iterator
               :items="planeStore.getSortedPlanes"
               :items-per-page="itemsPerPage"
@@ -36,9 +37,12 @@
                 <v-toolbar>
                 <v-btn @click="prevPage" :disabled="page === 1">prev</v-btn>
                 <v-btn @click="nextPage" :disabled="page === pageCount">next</v-btn>
+                  <v-spacer />
                   <div>
                   Seite: {{ page }} / {{ pageCount }}
                   </div>
+                  <v-spacer />
+                  <v-btn @click="seeAll" variant="outlined">{{ pageCount === 1 ? 'Zeige 12' : 'Zeige Alle'}}</v-btn>
                 </v-toolbar>
               </template>
               <template #default="{ items }">
@@ -59,14 +63,14 @@
               </template>
               <template #footer="{ page, pageCount, prevPage, nextPage}">
                 <v-toolbar>
-                  <v-spacer />
-                <v-btn @click="prevPage" :disabled="page === 1">prev</v-btn>
-                <v-btn @click="nextPage" :disabled="page === pageCount">next</v-btn>
+                  <v-btn @click="prevPage" :disabled="page === 1">prev</v-btn>
+                  <v-btn @click="nextPage" :disabled="page === pageCount">next</v-btn>
                   <v-spacer />
                   <div>
-                  Seite: {{ page }} / {{ pageCount }}
+                    Seite: {{ page }} / {{ pageCount }}
                   </div>
                   <v-spacer />
+                  <v-btn @click="seeAll" variant="outlined">{{ pageCount === 1 ? 'Zeige 12' : 'Zeige Alle'}}</v-btn>
                 </v-toolbar>
               </template>
             </v-data-iterator>
@@ -81,7 +85,10 @@ import { ref } from 'vue'
 
 const planeStore = usePlaneStore();
 const page = ref(1);
-const itemsPerPage = 12;
+const itemsPerPage = ref(12);
+const seeAll = () => {
+  itemsPerPage.value = itemsPerPage.value === 12 ? planeStore.getSortedPlanes.length : 12;
+}
 </script>
 <style scoped>
 .shadow {
