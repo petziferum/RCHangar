@@ -1,13 +1,25 @@
 <template>
   <v-app>
     <app-bar />
-  <v-main app class="appMain">
-  <RouterView />
+  <v-main app class="appMain" :class="appStore.mobile ? 'mobile' : 'desktop'">
+    <template v-if="!loading">
+      <RouterView />
+    </template>
+    <template v-else>
+      lade...<br>
+      <div v-if="userState.userLoading">Benutzer wird geladen <v-icon>mdi-knob mdi-spin</v-icon></div>
+      <div v-else>
+        Flugzeuge werden geladen <v-icon>mdi-knob mdi-spin</v-icon>
+      </div>
+      <v-progress-linear indeterminate color="primary"></v-progress-linear>
+    </template>
   </v-main>
     <v-footer>
       <div class="footer">
     <div v-if="userState.userFirestoreData">
-      fireUser: {{ userState.userFirestoreData }}
+      {{ userState.userFirestoreData.email}}<br />
+      {{ userState.appUser.id }}<br />
+      {{ userState.isAdmin }}<br />
       <div v-if="userState.isAdmin">
         ADMIN <v-icon color="yellow">mdi-account</v-icon>
       </div>
@@ -25,15 +37,26 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import AppBar from '../src/components/common/AppBar.vue'
-import { onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import { fireAuth, fireUser, registerWithGoogle, logOut as outlog } from '@/plugins/firesbaseConfig'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useUserStore } from '@/stores/userStore'
+import { usePlaneStore } from '@/stores/planeStore'
+import { useAppStore } from '@/stores/appStore'
 
 
+const appStore = useAppStore();
 const userState = useUserStore();
-
+const planeStore = usePlaneStore();
 const u = ref(fireUser)
+const loading = computed(() =>
+{
+  if(userState.userLoading || planeStore.hangarLoading) {
+    return true;
+  } else {
+    return false;
+  }
+});
 
 onBeforeMount(() => {
   onAuthStateChanged(fireAuth, (user) => {
@@ -41,18 +64,31 @@ onBeforeMount(() => {
 if (user) {
       u.value = user;
       userState.userFirestoreData = user;
+      userState.userLoading = false;
     } else {
       u.value= null;
     }
   });
+  planeStore.loadAllPlanes()
+
 });
 function logOut() {
   outlog();
 }
 </script>
 <style scoped>
+.mobile {
+  margin-left: 0;
+  margin-right: 0;
+}
+.desktop {
+  padding-top: 10em;
+  padding-left: 3em;
+  padding-right: 3em;
+}
 .footer {
   height: 300px;
+  max-width: 90%;
   align-content: center;
   margin-top: 5px;
 }

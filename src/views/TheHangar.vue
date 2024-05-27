@@ -9,14 +9,15 @@
         v-model="orderBy"
         @input="getByOrder"
       ></v-select>
-      <div class="mx-5 text-white">Flugzeuge: {{ planeStore.planesList.length }}</div>
+      <div class="mx-5 text-white">Flugzeuge: {{ planeStore.planesList.length }}, editplane {{ planeStore.editPlane.name }}</div>
     </v-col>
   </v-row>
+  <!-- Todo: Darstellung der Flugzeuge als v-data-iterator -->
   <v-row>
     <v-icon v-if="planeStore.hangarLoading" class="mx-5" icon="mdi-knob mdi-spin" color="grey" />
     <template v-else>
       <v-expansion-panels>
-        <v-expansion-panel v-for="plane in planeStore.planesList" :key="plane.id">
+        <v-expansion-panel v-for="plane in planeStore.getSortedPlanes" :key="plane.id">
           <v-expansion-panel-title
             ripple
             :style="panelImage(plane.image)"
@@ -25,7 +26,7 @@
             <v-row>
               <v-fade-transition leave-absolute>
                 <v-col
-                  :cols="expanded ? 2 : 3"
+                  :cols="expanded ? 2 : 6"
                   class="red--text font-weight-bold"
                   style="transform: rotate(-25deg)"
                 ><span v-if="plane.crash">CRASHED</span></v-col
@@ -39,28 +40,31 @@
                 {{ plane.name }}
               </v-col>
               <v-col
-                v-if="isMobile"
+                v-if="!isMobile"
                 cols="3"
                 class="grey--text caption"
               >
                 Gewicht: {{ plane.gewicht }}
               </v-col>
               <v-col
-                v-if="isMobile"
+                v-if="!isMobile"
                 cols="3"
                 class="grey--text caption"
               >
                 Spannweite: {{ plane.spannweite }}
               </v-col>
               <v-col
-                v-if="isMobile"
+                v-if="!isMobile"
                 cols="3"
                 class="grey--text caption"
               >
                 Faktor: {{ plane.faktor }}
               </v-col>
             </v-row>
-            <v-spacer />{{ plane.sender }}
+            <v-spacer />
+            <div v-if="userStore.appUser.isAdmin">
+              <v-btn size="small" icon="mdi-cog" @click.stop="editPlane(plane)"></v-btn>
+            </div>
           </v-expansion-panel-title>
           <v-expansion-panel-text>
             <template v-if="adminUser">
@@ -115,14 +119,21 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </template>
+    <v-dialog width="100%" v-model="editDialog" >
+                      <the-edit-plane @cancel="editDialog = false" @save="editDialog = false"/>
+    </v-dialog>
   </v-row>
 </template>
 <script setup lang="ts">
-import { computed, onBeforeMount, ref, type UnwrapRef } from 'vue'
+//Todo: Authentifizierung wenn nicht angemeldet keine Bearbeitung möglich.
+//Todo: Manche Flugzeuge habe kein Vorschaubild, es ist jedoch in der Datenbank vorhanden.
+//Todo: Sortierfunktion muss noch eingebaut werden.
+import { computed, ref } from 'vue'
 import { usePlaneStore } from '@/stores/planeStore'
 import { useUserStore } from '@/stores/userStore'
 import { useDisplay } from 'vuetify'
 import Plane from '@/types/Plane'
+import TheEditPlane from '@/components/TheEditPlane.vue'
 const planeStore = usePlaneStore();
 const userStore = useUserStore();
 const orderList = ref(["name", "id", "faktor", "gewicht", "spannweite"])
@@ -134,19 +145,21 @@ const adminUser = computed(() => {
 const isMobile = computed(() => {
   return mobile.value;
 })
-onBeforeMount(() => {
-  getPlanes();
-});
+const editDialog = ref(false);
 
 function getByOrder() {
   console.info("order by", orderBy.value);
   getPlanes();
-};
+}
 
 function getPlanes() {
   planeStore.loadAllPlanes();
 }
-
+function editPlane(plane: Plane): void{
+  console.log("edit plane", plane.name);
+  planeStore.editPlane = plane;
+  editDialog.value = true;
+}
 
 function panelImage(image: string | undefined): string {
   const style =

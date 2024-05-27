@@ -1,10 +1,13 @@
 import Plane from '@/types/Plane'
 import { planeConverter } from '@/types/Plane'
 import { getDocs, doc, setDoc, collection } from 'firebase/firestore'
+import { ref, listAll, getDownloadURL,  ref as fireRef,  uploadBytes, getStorage} from "firebase/storage";
 import { COLLECTION_NAME, db } from '@/plugins/firesbaseConfig'
 import { toast } from 'vue3-toastify'
+import LogEntry from '@/types/LogEntry'
 
-
+const IMAGE_FOLDER = "planes";
+const storage = getStorage();
 
 interface ImageItem {
   name: string;
@@ -50,14 +53,30 @@ export default class HangarService {
     });
   }
 
-  public static uploadPlaneImages(): void {
-    console.log("uploadPlaneImages wird noch ergänzt");
+  public static async uploadImage(file: any): Promise<string | undefined> {
+    const folder = IMAGE_FOLDER + "/";
+    const storageRef = fireRef(storage, folder + file.name);
+    try {
+      const snapshot = await uploadBytes(storageRef, file);
+      const downloadUrl = await getDownloadURL(snapshot.ref);
+      console.log("Uploaded a blob or file!", downloadUrl);
+      return downloadUrl;
+    } catch (error) {
+      console.log("Fehler: ", error);
+    }
   }
 
-  public static getPlaneImages(): Promise<ImageItem[]> {
-    return new Promise((resolve, reject) => {
-      return []; // muss noch ausformuliert werden
-    });
+  public static getAllImages(): Promise<string[]> {
+    const recipeRef = ref(storage, IMAGE_FOLDER);
+    return listAll(recipeRef)
+      .then((res) => {
+        const urlPromises = res.items.map((itemRef) => getDownloadURL(itemRef));
+        return Promise.all(urlPromises);
+      })
+      .catch((error) => {
+        console.log("error", error);
+        return [];
+      });
   }
 
   public static updatePlaneDescription(id: string, beschreibung: string): void {
@@ -65,6 +84,7 @@ export default class HangarService {
   }
 
   static async updatePlane(plane: Plane): Promise<Plane> {
+
     const planeRef = doc(db, COLLECTION_NAME, plane.id).withConverter(planeConverter);
     return await setDoc(planeRef, plane).then(() => plane);
   }
