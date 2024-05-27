@@ -32,6 +32,15 @@
               :items="planeStore.getSortedPlanes"
               :items-per-page="itemsPerPage"
               :page="page" >
+              <template #header="{ page, pageCount, prevPage, nextPage}">
+                <v-toolbar>
+                <v-btn @click="prevPage" :disabled="page === 1">prev</v-btn>
+                <v-btn @click="nextPage" :disabled="page === pageCount">next</v-btn>
+                  <div>
+                  Seite: {{ page }} / {{ pageCount }}
+                  </div>
+                </v-toolbar>
+              </template>
               <template #default="{ items }">
                 <v-row>
                   <v-col cols="12" md="6" lg="3" v-for="(plane, i) in items" :key="i">
@@ -47,6 +56,18 @@
                     </v-card>
                   </v-col>
                 </v-row>
+              </template>
+              <template #footer="{ page, pageCount, prevPage, nextPage}">
+                <v-toolbar>
+                  <v-spacer />
+                <v-btn @click="prevPage" :disabled="page === 1">prev</v-btn>
+                <v-btn @click="nextPage" :disabled="page === pageCount">next</v-btn>
+                  <v-spacer />
+                  <div>
+                  Seite: {{ page }} / {{ pageCount }}
+                  </div>
+                  <v-spacer />
+                </v-toolbar>
               </template>
             </v-data-iterator>
           </v-card-text>
