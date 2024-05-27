@@ -27,15 +27,40 @@
             <v-btn @click="planeStore.loadAllPlanes()">get planes</v-btn>
             <v-icon v-if="planeStore.hangarLoading" class="mx-5" icon="mdi-knob mdi-spin" color="grey" />
           </v-card-text>
-          <v-data-table v-if="!planeStore.hangarLoading" :items="planeStore.getSortedPlanes" density="compact" />
+          <v-card-text>
+            <v-data-iterator
+              :items="planeStore.getSortedPlanes"
+              :items-per-page="itemsPerPage"
+              :page="page" >
+              <template #default="{ items }">
+                <v-row>
+                  <v-col cols="12" md="6" lg="3" v-for="(plane, i) in items" :key="i">
+                    <v-card>
+                      <v-img :src="plane.raw.image" height="200px" />
+                      <v-card-title>{{ plane.raw.name }}</v-card-title>
+                      <v-card-text>
+                        <v-row>
+                          <v-col cols="6">Gewicht: {{ plane.raw.gewicht }}</v-col>
+                          <v-col cols="6">Spannweite: {{ plane.raw.spannweite }}</v-col>
+                        </v-row>
+                      </v-card-text>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </template>
+            </v-data-iterator>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
 </template>
 <script setup lang="ts">
 import { usePlaneStore } from '@/stores/planeStore';
+import { ref } from 'vue'
 
 const planeStore = usePlaneStore();
+const page = ref(1);
+const itemsPerPage = 12;
 </script>
 <style scoped>
 .shadow {
