@@ -35,6 +35,8 @@
   </v-app>
 </template>
 <script setup lang="ts">
+// Todo: Wenn Benutzer nicht angemeldet, dann login-Button anzeigen
+
 import { RouterView } from 'vue-router'
 import AppBar from '../src/components/common/AppBar.vue'
 import { computed, onBeforeMount, ref } from 'vue'
