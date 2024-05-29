@@ -36,7 +36,6 @@
             <p>Viel Spaß beim Stöbern!</p>
           </v-card-text>
           <v-card-text>
-            <v-btn @click="planeStore.loadAllPlanes()">get planes</v-btn>
             <v-icon v-if="planeStore.hangarLoading" class="mx-5" icon="mdi-knob mdi-spin" color="grey" />
           </v-card-text>
           <v-card-text>
