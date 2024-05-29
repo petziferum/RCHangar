@@ -23,12 +23,14 @@
           <v-card-text>
             In dieser App werden alle Flugzeuge aufgelistet, die gerade in
             unserem Keller "lagern".<br />
-            Die Modelle sind selbstgebaut und bestehen in den meisten Fällen aus
-            Balsa- und Sperrholz. Manche Modelle sind aus Styropor. Alle hier
-            gelisteten Modell sind mit Elektromotoren, Motorreglern und Servos
+            Die Modelle sind selbstgebaut, mit Elektromotoren ausgestattet und jederzeit flugbereit. <br>
+            Sie bestehen in den meisten Fällen aus
+            Balsa- und Sperrholz und manche Modelle sind aus Styropor. Alle hier
+            gelisteten Modelle sind mit Elektromotoren, Motorreglern und Servos
             ausgestattet, damit sie per Fernsteuerung geflogen werden können.
             Zum fliegen dieser Modelle werden LiPo-Akkus mit 2 oder mehr Zellen
-            eingesetzt. Da die Modelle zum Teil echten Flugzeugen nachempfunden
+            eingesetzt. Manche Modelle haben einziehbare Fahrwerke oder Landeklappen und andere 'Features',
+            die per Fernsteuerung bedienbar sind. Da die Modelle zum Teil echten Flugzeugen nachempfunden
             sind, ist auch eine Beschreibung dabei die die Geschichte des
             Originalen Flugzeugtyps erzählt.
             <p>Viel Spaß beim Stöbern!</p>
