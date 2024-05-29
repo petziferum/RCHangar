@@ -1,16 +1,5 @@
 <template>
   <v-app-bar scroll-behavior="inverted" class="appbar" dark elevation="20">
-    <router-link to="/" class="routerlink">
-      <v-img
-        transition="slide-x-reverse-transition"
-        alt="Hangar Logo"
-        class="mx-auto logo"
-        contain
-        min-width="100"
-        max-width="60%"
-        height="50%"
-      />
-    </router-link>
 
     <template v-slot:extension>
       <v-tabs>
@@ -21,7 +10,6 @@
       </v-tabs>
       <v-spacer />
       <template v-if="user">
-        {{ user.email }}
         <v-icon icon="mdi-logout" class="mx-5" @click="logOut" />
       </template>
       <template v-else>
@@ -54,11 +42,6 @@ function login() {
 .appbar {
   background-color: #293556;
   color: white;
-}
-.logo {
-  border: 0;
-  right: 10px;
-  top: 50px;
 }
 .routerlink {
   position: relative;

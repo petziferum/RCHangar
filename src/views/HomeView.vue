@@ -1,4 +1,14 @@
 <template>
+  <v-row justify="center">
+    <v-col cols="12" class="text-center">
+        <img
+          :src="hangarlogo"
+          transition="slide-x-reverse-transition"
+          alt="Hangar Logo"
+          class="mx-auto logo"
+        />
+    </v-col>
+  </v-row>
     <v-row class="mt-10 pt-10">
       <v-col cols="12" class="white--text text-center text-lg-h1 text-h5"
       >
@@ -106,11 +116,17 @@ import { ref } from 'vue'
 const planeStore = usePlaneStore();
 const page = ref(1);
 const itemsPerPage = ref(12);
+const hangarlogo = 'https://firebasestorage.googleapis.com/v0/b/hangar-7334.appspot.com/o/images%2FHANGARLOGO.png?alt=media&token=ae198399-07dd-4c7e-9de3-8cff4751ebeb';
 const seeAll = () => {
   itemsPerPage.value = itemsPerPage.value === 12 ? planeStore.getSortedPlanes.length : 12;
 }
 </script>
 <style scoped>
+.logo {
+  margin-top: 5%;
+  padding: 0;
+  margin-bottom: 0;
+}
 .shadow {
  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
 }
