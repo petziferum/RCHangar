@@ -53,11 +53,7 @@ const planeStore = usePlaneStore();
 const u = ref(fireUser)
 const loading = computed(() =>
 {
-  if(userState.userLoading || planeStore.hangarLoading) {
-    return true;
-  } else {
-    return false;
-  }
+  return userState.userLoading || planeStore.hangarLoading;
 });
 
 onBeforeMount(() => {
@@ -97,10 +93,9 @@ function logOut() {
 .appMain {
   z-index: 5;
   padding: 101px;
-  background: #5a664b url('https://firebasestorage.googleapis.com/v0/b/hangar-7334.appspot.com/o/images%2FHimmel.jpg?alt=media&token=c90e264f-699b-4add-b042-84d1b97c59f2') repeat-y center center;
   background-size: 200%;
-  background-attachment: fixed;
-  border: 0px solid #00664b;
+  background: #5a664b url('https://firebasestorage.googleapis.com/v0/b/hangar-7334.appspot.com/o/images%2FHimmel.jpg?alt=media&token=c90e264f-699b-4add-b042-84d1b97c59f2') repeat-y fixed center center;
+  border: 0 solid #00664b;
   box-shadow: 0px 25px 20px -2px rgba(0,0,0,0.5);
   border-radius: 20px;
   height: 100%;
@@ -112,9 +107,8 @@ function logOut() {
   position: absolute;
   top: 0;
   left: 0;
-  background: url( 'https://cdn.pixabay.com/photo/2016/03/26/13/09/organic-1280537_1280.jpg') no-repeat center center;
   background-size: cover;
-  background-color: red;
+  background: red url('https://cdn.pixabay.com/photo/2016/03/26/13/09/organic-1280537_1280.jpg') no-repeat center center;
   transform: scale(1.1);
 }
 </style>
