@@ -59,13 +59,21 @@
               <template #default="{ items }">
                 <v-row>
                   <v-col cols="12" md="6" lg="3" v-for="(plane, i) in items" :key="i">
-                    <v-card>
+                    <v-card elevation="12" class="mt-2">
                       <v-dialog>
                         <template v-slot:activator="{ props }">
+                          <template v-if="plane.raw.image.length === 0">
+                            <v-skeleton-loader type="image"
+                                               width="100%"
+                                               height="200px"
+                                               >
+                            </v-skeleton-loader>
+                          </template>
+                          <template v-else>
                           <v-img
                             :src="plane.raw.image"
                             class="contImg"
-                            width="100%"
+                            cover
                             height="200px"
                             v-bind="props"
                           >
@@ -78,6 +86,7 @@
                               Schrott
                             </v-overlay>
                           </v-img>
+                          </template>
                         </template>
                         <v-img :src="plane.raw.image" width="100%"></v-img>
                       </v-dialog>
