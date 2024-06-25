@@ -62,14 +62,11 @@
               </v-col>
             </v-row>
             <v-spacer />
-            <div v-if="userStore.appUser.isAdmin">
+            <div v-if="adminUser">
               <v-btn size="small" icon="mdi-cog" @click.stop="editPlane(plane)"></v-btn>
             </div>
           </v-expansion-panel-title>
           <v-expansion-panel-text>
-            <template v-if="adminUser">
-              <AdminActionBar :plane="plane" @update="getPlanes" />
-            </template>
             <v-dialog>
               <template v-slot:activator="{ props }">
                 <v-img
@@ -93,8 +90,13 @@
             </v-dialog>
             <v-card tile elevation="4">
               <v-row>
-                <v-col cols="12">
-                  <v-simple-table dense>
+                <v-col cols="12" md="8">
+                  <v-card-text>
+                  <v-btn>Zum Fliegen auswählen</v-btn>
+                  </v-card-text>
+                </v-col>
+                <v-col cols="12" md="4">
+                  <v-table density="compact">
                     <template v-slot:default>
                       <tbody>
                       <tr v-for="(value, key) in plane" :key="key">
@@ -103,7 +105,7 @@
                       </tr>
                       </tbody>
                     </template>
-                  </v-simple-table>
+                  </v-table>
                 </v-col>
               </v-row>
               <v-row>
@@ -140,7 +142,7 @@ const orderList = ref(["name", "id", "faktor", "gewicht", "spannweite"])
 const orderBy = ref("name")
 const { mobile } = useDisplay()
 const adminUser = computed(() => {
-  return userStore.isAdmin;
+  return userStore.appUser.isAdmin;
 })
 const isMobile = computed(() => {
   return mobile.value;
