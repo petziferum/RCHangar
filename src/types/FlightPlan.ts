@@ -3,10 +3,10 @@ import Plane from '@/types/Plane'
 export default class FlightPlan {
   constructor(
     private id: string,
-    private name: string,
-    private freitext: string,
-    private date: Date,
-    private flugzeuge: Plane[]
+    public name: string,
+    public freitext: string,
+    public date: Date,
+    public flugzeuge: Plane[]
   ) {
     this.id = id;
     this.name = name;

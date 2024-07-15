@@ -17,7 +17,7 @@
       <v-btn variant="outlined" elevation="2" @click="createFlightPlan">
         <v-icon icon="mdi-airport" size="large"/>Neuer Flugplan
       </v-btn>
-      <v-btn variant="outlined" elevation="2" class="bg-blue-accent-1">
+      <v-btn variant="outlined" elevation="2" class="bg-blue-accent-1" @click="showFlightPlans">
         <v-icon icon="mdi-playlist-edit" size="x-large" />
       </v-btn>
     </v-toolbar>
@@ -32,7 +32,7 @@
         </template>
       </v-col>
     </v-row>
-
+    <FlightPlansDialog ref="flightPlansDialog" :flightPlans="flightPlans" />
   </v-container>
 </template>
 
@@ -47,6 +47,7 @@ import { batteryAsRecord } from '@/types/Battery'
 import TheEditPlane from '@/components/TheEditPlane.vue'
 import { toast } from 'vue3-toastify'
 import FlightPlan from '@/types/FlightPlan'
+import FlightPlansDialog from '@/components/FlightPlanListDialog.vue'
 
 
 const userStore = useUserStore();
@@ -61,12 +62,19 @@ const batteries = batteryAsRecord
 //Todo: EditPlane Komponente verwenden!
 //Todo: Battery als Dropdown auswahlfeld einfügen.
 
-const flightPlan = ref<FlightPlan | null>(null);
+const flightPlanEdit = ref<FlightPlan | null>(null);
+const flightPlans = ref<FlightPlan[]>([]);
+const flightPlansDialog = ref<InstanceType<typeof FlightPlansDialog> | null>(null);
 
+function showFlightPlans() {
+  flightPlansDialog.value?.open();
+}
 function createFlightPlan() {
   const date = new Date();
   const remark = "This is a sample flight plan.";
-  flightPlan.value = FlightPlan.createEmtptyFlugzeugliste().withId("1234").withDate(date).withName("Test").withFlugzeuge([newPlane]).withFreitext(remark);
+  flightPlanEdit.value = FlightPlan.createEmtptyFlugzeugliste().withId("1234").withDate(date).withName("Test").withFlugzeuge([newPlane]).withFreitext(remark);
+  flightPlans.value.push(flightPlanEdit.value);
+
 }
 
 watch(() => newPlane!.name, (newVal) => {
