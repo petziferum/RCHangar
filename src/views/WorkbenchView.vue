@@ -46,6 +46,7 @@ import { usePlaneStore } from '@/stores/planeStore'
 import { batteryAsRecord } from '@/types/Battery'
 import TheEditPlane from '@/components/TheEditPlane.vue'
 import { toast } from 'vue3-toastify'
+import FlightPlan from '@/types/FlightPlan'
 
 
 const userStore = useUserStore();
@@ -60,6 +61,13 @@ const batteries = batteryAsRecord
 //Todo: EditPlane Komponente verwenden!
 //Todo: Battery als Dropdown auswahlfeld einfügen.
 
+const flightPlan = ref<FlightPlan | null>(null);
+
+function createFlightPlan() {
+  const date = new Date();
+  const remark = "This is a sample flight plan.";
+  flightPlan.value = FlightPlan.createEmtptyFlugzeugliste().withId("1234").withDate(date).withName("Test").withFlugzeuge([newPlane]).withFreitext(remark);
+}
 
 watch(() => newPlane!.name, (newVal) => {
   const nameSlug = slugifyString(newVal!);

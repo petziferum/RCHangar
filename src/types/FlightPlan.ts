@@ -4,11 +4,13 @@ export default class FlightPlan {
   constructor(
     private id: string,
     private name: string,
+    private freitext: string,
     private date: Date,
     private flugzeuge: Plane[]
   ) {
     this.id = id;
     this.name = name;
+    this.freitext = freitext;
     this.date = date;
     this.flugzeuge = flugzeuge;
   }
@@ -36,8 +38,13 @@ export default class FlightPlan {
   addFlugzeug(value: Plane): void {
     this.flugzeuge.push(value);
   }
+  withFreitext(value: string): FlightPlan {
+    this.freitext = value;
+    return this;
+
+  }
 
   public static createEmtptyFlugzeugliste(): FlightPlan {
-    return new FlightPlan("", "", new Date(Date.now()), []);
+    return new FlightPlan("", "","", new Date(Date.now()), []);
   }
 }
