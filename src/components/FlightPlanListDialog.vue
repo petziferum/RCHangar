@@ -9,20 +9,20 @@
         </v-card-title>
         <v-card-text>
           <v-list lines="two">
-            <v-list-item v-for="(plane, index) in flightPlans" :key="index">
+            <v-list-item v-for="(list, index) in flightPlans" :key="index">
               <v-list-item-content>
-                <v-list-item-title>{{ plane.date.toLocaleDateString() }} - {{ plane.name }}</v-list-item-title>
-                <v-list-item-subtitle>{{ plane.freitext }}</v-list-item-subtitle>
-                <v-list-item-subtitle>{{ plane.flugzeuge.length }} planes</v-list-item-subtitle>
+                <v-list-item-title>{{ list.date.toLocaleDateString() }} - {{ list.name }}</v-list-item-title>
+                <v-list-item-subtitle>{{ list.freitext }}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{ list.flugzeuge.length }} planes</v-list-item-subtitle>
               </v-list-item-content>
               <template v-slot:append>
-                <v-icon @click="console.log(plane)">mdi-format-list-text</v-icon>
+                <v-icon @click="console.log(list)">mdi-format-list-text</v-icon>
               </template>
             </v-list-item>
           </v-list>
         </v-card-text>
         <v-card-actions>
-          <v-btn text @click="visible = false">Close</v-btn>
+          <v-btn variant="text" @click="visible = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

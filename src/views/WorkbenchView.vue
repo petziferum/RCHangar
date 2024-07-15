@@ -72,7 +72,8 @@ function showFlightPlans() {
 function createFlightPlan() {
   const date = new Date();
   const remark = "This is a sample flight plan.";
-  flightPlanEdit.value = FlightPlan.createEmtptyFlugzeugliste().withId("1234").withDate(date).withName("Test").withFlugzeuge([newPlane]).withFreitext(remark);
+  const randomId = Math.floor(Math.random() * (9999 - 1000) + 1000);
+  flightPlanEdit.value = FlightPlan.createEmtptyFlugzeugliste().withId(randomId.toString()).withDate(date).withName("Test").withFlugzeuge([newPlane]).withFreitext(remark);
   flightPlans.value.push(flightPlanEdit.value);
 
 }
