@@ -1,6 +1,6 @@
-import Plane from "@/types/Plane";
+import Plane from '@/types/Plane'
 
-export default class Flugzeugliste {
+export default class FlightPlan {
   constructor(
     private id: string,
     private name: string,
@@ -13,22 +13,22 @@ export default class Flugzeugliste {
     this.flugzeuge = flugzeuge;
   }
 
-  withId(value: string): Flugzeugliste {
+  withId(value: string): FlightPlan {
     this.id = value;
     return this;
   }
 
-  withName(value: string): Flugzeugliste {
+  withName(value: string): FlightPlan {
     this.name = value;
     return this;
   }
 
-  withDate(value: Date): Flugzeugliste {
+  withDate(value: Date): FlightPlan {
     this.date = value;
     return this;
   }
 
-  withFlugzeuge(value: Plane[]): Flugzeugliste {
+  withFlugzeuge(value: Plane[]): FlightPlan {
     this.flugzeuge = value;
     return this;
   }
@@ -37,7 +37,7 @@ export default class Flugzeugliste {
     this.flugzeuge.push(value);
   }
 
-  public static createEmtptyFlugzeugliste(): Flugzeugliste {
-    return new Flugzeugliste("", "", new Date(Date.now()), []);
+  public static createEmtptyFlugzeugliste(): FlightPlan {
+    return new FlightPlan("", "", new Date(Date.now()), []);
   }
 }
