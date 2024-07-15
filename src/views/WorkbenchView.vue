@@ -61,6 +61,8 @@ const batteries = batteryAsRecord
 
 //Todo: EditPlane Komponente verwenden!
 //Todo: Battery als Dropdown auswahlfeld einfügen.
+//Todo: Flightplans Kompionente ausbauen dass neuer Flugplan erstellt werden kann mit Flugzeugen und Flugdaten.
+//Todo: Flightplans in DB speichern und laden zum Editieren.
 
 const flightPlanEdit = ref<FlightPlan | null>(null);
 const flightPlans = ref<FlightPlan[]>([]);
