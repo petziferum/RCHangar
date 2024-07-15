@@ -13,9 +13,12 @@
         item-title="name"
       @update:modelValue="startEditing"/>
       <BaseDialog activator-text="Flugzeug erstellen" @create="createPlane" title="Name des Flugzeugs" ref="baseDialog" />
-      <v-spacer></v-spacer>
+      <v-spacer />
+      <v-btn variant="outlined" elevation="2" @click="createFlightPlan">
+        <v-icon icon="mdi-airport" size="large"/>Neuer Flugplan
+      </v-btn>
       <v-btn variant="outlined" elevation="2" class="bg-blue-accent-1">
-        <v-icon icon="mdi-information-outline" />
+        <v-icon icon="mdi-playlist-edit" size="x-large" />
       </v-btn>
     </v-toolbar>
     <v-row>
