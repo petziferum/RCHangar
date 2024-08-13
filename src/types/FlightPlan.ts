@@ -41,7 +41,6 @@ export default class FlightPlan {
   withFreitext(value: string): FlightPlan {
     this.freitext = value;
     return this;
-
   }
 
   public static createEmtptyFlugzeugliste(): FlightPlan {

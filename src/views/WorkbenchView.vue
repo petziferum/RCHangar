@@ -14,7 +14,7 @@
       @update:modelValue="startEditing"/>
       <BaseDialog activator-text="Flugzeug erstellen" @create="createPlane" title="Name des Flugzeugs" ref="baseDialog" />
       <v-spacer />
-      <v-btn variant="outlined" elevation="2" @click="createFlightPlan">
+      <v-btn variant="outlined" elevation="2" @click="openCreateDialog">
         <v-icon icon="mdi-airport" size="large"/>Neuer Flugplan
       </v-btn>
       <v-btn variant="outlined" elevation="2" class="bg-blue-accent-1" @click="showFlightPlans">
@@ -32,6 +32,7 @@
         </template>
       </v-col>
     </v-row>
+    <FlightplanCreateDialog ref="flightplanCreateDialog" @create="createFlightPlan" />
     <FlightPlansDialog ref="flightPlansDialog" :flightPlans="flightPlans" />
   </v-container>
 </template>
@@ -39,7 +40,6 @@
 <script setup lang="ts">
 import BaseDialog from '@/components/BaseDialog.vue'
 import { computed, onBeforeMount, ref, watch } from 'vue'
-import Plane from '@/types/Plane'
 import { useUserStore } from '@/stores/userStore'
 import { slugifyString } from '@/plugins/scripts'
 import { usePlaneStore } from '@/stores/planeStore'
@@ -48,6 +48,7 @@ import TheEditPlane from '@/components/TheEditPlane.vue'
 import { toast } from 'vue3-toastify'
 import FlightPlan from '@/types/FlightPlan'
 import FlightPlansDialog from '@/components/FlightPlanListDialog.vue'
+import FlightplanCreateDialog from '@/components/FlightplanCreateDialog.vue'
 
 
 const userStore = useUserStore();
@@ -67,12 +68,17 @@ const batteries = batteryAsRecord
 const flightPlanEdit = ref<FlightPlan | null>(null);
 const flightPlans = ref<FlightPlan[]>([]);
 const flightPlansDialog = ref<InstanceType<typeof FlightPlansDialog> | null>(null);
+const flightplanCreateDialog = ref<InstanceType<typeof FlightplanCreateDialog> | null>(null);
 
 function showFlightPlans() {
   flightPlansDialog.value?.open();
 }
-function createFlightPlan() {
-  const date = new Date();
+function openCreateDialog() {
+  flightplanCreateDialog.value?.open();
+}
+function createFlightPlan(payload: Date) {
+  toast.info("Neuer Flugplan wird erstellt für" + payload);
+  const date = payload;
   const remark = "This is a sample flight plan.";
   const randomId = Math.floor(Math.random() * (9999 - 1000) + 1000);
   flightPlanEdit.value = FlightPlan.createEmtptyFlugzeugliste().withId(randomId.toString()).withDate(date).withName("Test").withFlugzeuge([newPlane]).withFreitext(remark);
