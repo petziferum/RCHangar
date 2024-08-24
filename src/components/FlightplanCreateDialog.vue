@@ -5,8 +5,8 @@
   </template>
   <v-card title="Neuen Flugplan erstellen">
     <v-card-text>
+      <!-- Todo: Datepicker einfügen -->
       //Hier soll ein Feld rein um das Datum auszuwählen für den Flugplan
-
     </v-card-text>
     <v-card-actions>
       <v-btn @click="open = false">Abbrechen</v-btn>
