@@ -10,7 +10,7 @@
       </v-tabs>
       <v-spacer />
       <template v-if="user">
-        <v-icon icon="mdi-account" class="mx-5" @click="goToUserDashboard" /><span class="mr-4">{{ user.displayName }}</span>
+        <v-btn rounded="pill" @click="goToUserDashboard"><v-icon icon="mdi-account" class="mx-5" /><span class="mr-4">{{ user.displayName }}</span></v-btn>
       </template>
       <template v-else>
         <v-btn variant="text" @click="login">Login</v-btn>
