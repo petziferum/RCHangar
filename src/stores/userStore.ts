@@ -29,5 +29,5 @@ export const useUserStore = defineStore("userStore", () => {
     return appUser.value.isAdmin;
   });
 
-  return { userFirestoreData,appUser, userLoading, userError, userLoggedIn, setUserFirestoreData, isAdmin };
+  return { userFirestoreData, appUser, userLoading, userError, userLoggedIn, setUserFirestoreData, isAdmin };
 });

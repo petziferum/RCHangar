@@ -22,6 +22,11 @@ const router = createRouter({
       name: 'Werkbank',
       component: () => import('../views/WorkbenchView.vue')
     },
+    {
+      path: '/user/:id',
+      name: 'Userdashboard',
+      component: () => import('../views/TheUserDashboard.vue')
+    }
   ]
 })
 
