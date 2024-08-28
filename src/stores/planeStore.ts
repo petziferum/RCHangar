@@ -35,7 +35,7 @@ export const usePlaneStore = defineStore('planeStore', () => {
   }
   function updateEditedPlane(): void {
     hangarLoading.value = true;
-    editPlane.value.withLastEdit(new Date(Date.now()));
+    editPlane.value.withUpdatedAt(new Date(Date.now()));
     editPlane.value.addLogEntry(LogEntry.createEmtptyLogEntry().withPlaneId(editPlane.value.id).withDate(new Date(Date.now())).withText("Änderung durchgeführt"));
     HangarService.updatePlane(editPlane.value);
       resetNewPlane();

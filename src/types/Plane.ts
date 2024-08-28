@@ -21,7 +21,7 @@ export default class Plane {
   beschreibung?: string;
   log: LogEntry[];
   crash?: boolean;
-  lastEdit?: Date
+  updatedAt?: Date
 
   constructor(
     id: string = '',
@@ -39,7 +39,7 @@ export default class Plane {
     beschreibung: string | undefined,
     log: LogEntry[],
     crash: boolean | undefined,
-    lastEdit?: Date
+    updatedAt?: Date
   ) {
     this.id = id;
     this.name = name;
@@ -56,7 +56,7 @@ export default class Plane {
     this.beschreibung = beschreibung;
     this.log = log;
     this.crash = crash;
-    this.lastEdit = lastEdit;
+    this.updatedAt = updatedAt;
   }
 
   withOwner(value: User): Plane {
@@ -133,8 +133,8 @@ export default class Plane {
     this.log.push(value);
   }
 
-  withLastEdit(value: Date): Plane {
-    this.lastEdit = value;
+  withUpdatedAt(value: Date): Plane {
+    this.updatedAt = value;
     return this;
   }
 
@@ -155,7 +155,7 @@ export default class Plane {
       obj.beschreibung,
       logConverterTimestampToDate(obj.log),
       obj.crash,
-      obj.lastEdit
+      obj.updatedAt
     ).withId(obj.id!);
   }
 
@@ -210,7 +210,7 @@ export const planeConverter = {
       beschreibung: plane.beschreibung,
       log: [],
       crash: plane.crash,
-      lastEdit: new Date(Date.now()),
+      updatedAt: new Date(Date.now()),
     };
   },
   fromFirestore: (snapshot, options) => {
