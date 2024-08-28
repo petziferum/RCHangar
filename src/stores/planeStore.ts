@@ -5,6 +5,7 @@ import HangarService from '@/api/hangarService.api'
 import { toast } from 'vue3-toastify'
 import LogEntry from '@/types/LogEntry'
 import { useUserStore } from '@/stores/userStore'
+import { serverTimestamp } from 'firebase/firestore'
 
 export const usePlaneStore = defineStore('planeStore', () => {
   const planesList = ref<Plane[]>([])
@@ -35,7 +36,6 @@ export const usePlaneStore = defineStore('planeStore', () => {
   }
   function updateEditedPlane(): void {
     hangarLoading.value = true;
-    editPlane.value.withUpdatedAt(new Date(Date.now()));
     editPlane.value.addLogEntry(LogEntry.createEmtptyLogEntry().withPlaneId(editPlane.value.id).withDate(new Date(Date.now())).withText("Änderung durchgeführt"));
     HangarService.updatePlane(editPlane.value);
       resetNewPlane();

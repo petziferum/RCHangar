@@ -12,7 +12,7 @@ export const useUserStore = defineStore("userStore", () => {
 
   watch(userFirestoreData, (newVal, oldValue) => {
     if (newVal) {
-      console.log("userStore: ", newVal, oldValue);
+      console.log("userStore: ", newVal.uid, oldValue);
       appUser.value = User.setUserFromFirebase(newVal);
       userLoggedIn.value = true;
       if(newVal.uid === 'Pjkzvd5lIodGknPvC2agDSa3e8r1') {

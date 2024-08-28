@@ -19,7 +19,7 @@ export default class User {
   }
 
   static setUserFromFirebase(user: FireUser): User {
-    console.log("fireuser", user);
+    console.log("setUserFromFirebase", user);
     return new User(user.uid, user.displayName || "", user.displayName || "", user.email || "");
   }
 

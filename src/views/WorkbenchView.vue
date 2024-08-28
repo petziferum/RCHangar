@@ -109,7 +109,7 @@ function loadPlanes(): void {
   }
 
   function saveEmit() {
-    console.log("updatePlane", planeStore.editPlane);
+    console.log("updatePlane saveemit", planeStore.editPlane);
     editPlane.value = false;
   }
   function cancel() {

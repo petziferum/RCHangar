@@ -2,6 +2,7 @@ import Sender from '@/types/Sender'
 import Battery from '@/types/Battery'
 import LogEntry from '@/types/LogEntry'
 import User from '@/types/User'
+import { serverTimestamp } from 'firebase/firestore'
 
 
 
@@ -138,9 +139,9 @@ export default class Plane {
     return this;
   }
 
-  static createFirePlane(obj: Plane): Plane {
+  static createFirePlane(id: string, obj: Plane): Plane {
     return new Plane(
-      obj.id,
+      id,
       obj.name,
       obj.owner,
       obj.sender,
@@ -175,7 +176,8 @@ export default class Plane {
       '',
       '',
       [],
-      false);
+      false,
+      undefined);
   }
 }
 
@@ -192,12 +194,17 @@ function ownerConverter(owner: User) {
 }
 
 export const planeConverter = {
-  toFirestore: function (plane) {
-    console.log("Converter gestartet für ", plane);
+  toFirestore: function (plane: Plane) {
     return {
-      id: "",
+      id: plane.id,
       name: plane.name,
-      owner: {},
+      owner: {
+        id: plane.owner.id || undefined,
+        name: plane.owner.name || undefined,
+        displayName: plane.owner.displayName || undefined,
+        email: plane.owner.email || undefined,
+        isAdmin: plane.owner.isAdmin || undefined,
+      },
       sender: plane.sender ? plane.sender : Sender.UNKNOWN,
       battery: plane.battery ? plane.battery : Battery.zwei,
       mah: plane.mah ? plane.mah : 0,
@@ -208,14 +215,18 @@ export const planeConverter = {
       faktor: plane.faktor,
       image: plane.image,
       beschreibung: plane.beschreibung,
-      log: [],
+      log: logConverter(plane.log),
       crash: plane.crash,
-      updatedAt: new Date(Date.now()),
+      updatedAt: serverTimestamp(),
     };
   },
   fromFirestore: (snapshot, options) => {
-    const plane = snapshot.data(options);
-    return Plane.createFirePlane(plane);
+    const data = snapshot.data(options);
+    return Plane.createFirePlane(snapshot.id,{
+      ...data,
+      id: snapshot.id,
+      log: logConverterTimestampToDate(data.log),
+    });
   },
 };
 

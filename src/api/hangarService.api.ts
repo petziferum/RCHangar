@@ -1,6 +1,6 @@
 import Plane from '@/types/Plane'
 import { planeConverter } from '@/types/Plane'
-import { getDocs, doc, setDoc, collection } from 'firebase/firestore'
+import { getDocs, updateDoc, doc, setDoc, collection } from 'firebase/firestore'
 import { ref, listAll, getDownloadURL,  ref as fireRef,  uploadBytes, getStorage} from "firebase/storage";
 import { COLLECTION_NAME, db } from '@/plugins/firesbaseConfig'
 import { toast } from 'vue3-toastify'
@@ -16,7 +16,6 @@ interface ImageItem {
 export default class HangarService {
   public static async getAllPlanes(): Promise<Plane[]> {
     const planesList: Array<Plane> = [];
-    console.log("HangarService.getAllPlanes");
     const snap = await getDocs(
       collection(db,"planes").withConverter(planeConverter)
     );
@@ -84,9 +83,13 @@ export default class HangarService {
   }
 
   static async updatePlane(plane: Plane): Promise<Plane> {
-
-    const planeRef = doc(db, COLLECTION_NAME, plane.id).withConverter(planeConverter);
-    return await setDoc(planeRef, plane).then(() => plane);
+    console.log("update Plane: ", plane);
+    if (!plane.id) {
+      throw new Error("Plane ID is required for updating.");
+    }
+    const planeRef = doc(db, "planes", plane.id).withConverter(planeConverter);
+    const planeData = planeConverter.toFirestore(plane);
+    return updateDoc(planeRef, planeData).then(() => plane);
   }
 
   static async createPlaneCollectionBackup(): Promise<void> {}
