@@ -52,6 +52,7 @@ defineExpose({
   open: () => {
     open.value = true
     flugplanStore.startEditFlightPlan()
+    flugplanStore.editMode = false;
   },
   close: () => {
     open.value = false

@@ -81,6 +81,10 @@
         <template v-if="editPlane">
           <the-edit-plane @save="saveEmit" @cancel="cancel" />
         </template>
+        <template v-if="flugplanStore.editMode">
+          Flugplan bearbeiten: <br>
+          {{ flugplanStore.flugplanEdit }}
+        </template>
       </v-col>
     </v-row>
     <FlightplanCreateDialog ref="flightplanCreateDialog" />
@@ -90,7 +94,7 @@
 
 <script setup lang="ts">
 import BaseDialog from '@/components/BaseDialog.vue'
-import { onBeforeMount, ref, watch } from 'vue'
+import { computed, onBeforeMount, ref, watch } from 'vue'
 import { useUserStore } from '@/stores/userStore'
 import { slugifyString } from '@/plugins/scripts'
 import { usePlaneStore } from '@/stores/planeStore'
@@ -106,7 +110,7 @@ const planeStore = usePlaneStore()
 const flugplanStore = useFlugplanStore()
 const newPlane = planeStore.editPlane
 const baseDialog = ref(null)
-const editPlane = ref(false)
+const editPlane = computed(()=> planeStore.editMode)
 const hint = ref('')
 const showRawData = ref(true)
 const batteries = batteryAsRecord
@@ -143,7 +147,8 @@ onBeforeMount(() => {
 function startEditing(): void {
   selectPlaneDialog.value = false
   menuOpen.value = false
-  editPlane.value = true
+  planeStore.editMode = true;
+  flugplanStore.editMode = false;
 }
 
 function loadPlanes(): void {

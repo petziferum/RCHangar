@@ -13,6 +13,7 @@ export const usePlaneStore = defineStore('planeStore', () => {
   const newPlane = ref<Plane>(Plane.createEmptyPlane().withCrash(false))
   const editPlane = ref<Plane>(Plane.createEmptyPlane().withCrash(false))
   const images = ref<string[]>([])
+  const editMode = ref(false);
 
   function loadAllPlanes() {
     console.log("loadAllPlanes gestartet");
@@ -81,5 +82,5 @@ export const usePlaneStore = defineStore('planeStore', () => {
     return images.value;
   })
 
-  return { planesList,hangarLoading, newPlane, editPlane, images, saveNewPlane, loadAllPlanes, updateEditedPlane, updateImage, fetchAllImages, setOwnerToEditPlane, getPlanesAsList, getSortedPlanes, getAllImages, resetNewPlane}
+  return { planesList,hangarLoading, newPlane, editPlane, images, editMode, saveNewPlane, loadAllPlanes, updateEditedPlane, updateImage, fetchAllImages, setOwnerToEditPlane, getPlanesAsList, getSortedPlanes, getAllImages, resetNewPlane}
 })

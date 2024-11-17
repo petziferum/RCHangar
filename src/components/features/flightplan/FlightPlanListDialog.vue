@@ -14,14 +14,13 @@
         </template>
         <template v-else>
           <v-list lines="two">
-            <v-list-item v-for="(list, index) in flightPlans" :key="index">
+            <v-list-item v-for="(list, index) in flightPlans" :key="index" @click="editPlan(index)">
               <v-list-item-title>{{ list.name }} vom {{ list.date }}, id: {{ list.id }}
               </v-list-item-title>
               <v-list-item-subtitle>{{ list.freitext }}</v-list-item-subtitle>
               <v-list-item-subtitle>{{ list.flugzeuge.length }} planes</v-list-item-subtitle>
               <template v-slot:append>
                 <v-icon>mdi-format-list-text</v-icon>
-                <v-icon @click="deletePlan(index)">mdi-delete</v-icon>
               </template>
             </v-list-item>
           </v-list>
@@ -38,15 +37,23 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { useFlugplanStore } from '@/stores/flugplanStore'
+import { usePlaneStore } from '@/stores/planeStore'
 
 const flugplanStore = useFlugplanStore()
-
+const planeStore = usePlaneStore()
 const visible = ref(false)
 const flightPlans = computed(() => flugplanStore.flugplaene)
 
 function deletePlan(index: number) {
   //flugplanStore.flugplaene.splice(index, 1)
   flugplanStore.deleteFlightplan(index)
+}
+
+function editPlan(index: number) {
+  flugplanStore.flugplanEdit = flugplanStore.flugplaene[index];
+  flugplanStore.editMode = true;
+  planeStore.editMode = false;
+  close();
 }
 
 function open() {
