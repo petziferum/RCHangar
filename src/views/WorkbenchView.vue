@@ -32,7 +32,7 @@
         </template>
       </v-col>
     </v-row>
-    <FlightplanCreateDialog ref="flightplanCreateDialog" @create="createFlightPlan" />
+    <FlightplanCreateDialog ref="flightplanCreateDialog" />
     <FlightPlansDialog ref="flightPlansDialog" :flightPlans="flightPlans" />
   </v-container>
 </template>
@@ -49,10 +49,12 @@ import { toast } from 'vue3-toastify'
 import FlightPlan from '@/types/FlightPlan'
 import FlightPlansDialog from '@/components/FlightPlanListDialog.vue'
 import FlightplanCreateDialog from '@/components/FlightplanCreateDialog.vue'
+import { useFlugplanStore } from '@/stores/flugplanStore'
 
 
 const userStore = useUserStore();
 const planeStore = usePlaneStore();
+const flugplanStore = useFlugplanStore();
 const newPlane = planeStore.editPlane;
 const baseDialog = ref(null);
 const editPlane = ref(false);
@@ -65,8 +67,6 @@ const batteries = batteryAsRecord
 //Todo: Flightplans Kompionente ausbauen dass neuer Flugplan erstellt werden kann mit Flugzeugen und Flugdaten.
 //Todo: Flightplans in DB speichern und laden zum Editieren.
 
-const flightPlanEdit = ref<FlightPlan | null>(null);
-const flightPlans = ref<FlightPlan[]>([]);
 const flightPlansDialog = ref<InstanceType<typeof FlightPlansDialog> | null>(null);
 const flightplanCreateDialog = ref<InstanceType<typeof FlightplanCreateDialog> | null>(null);
 
@@ -75,15 +75,6 @@ function showFlightPlans() {
 }
 function openCreateDialog() {
   flightplanCreateDialog.value?.open();
-}
-function createFlightPlan(payload: Date) {
-  toast.info("Neuer Flugplan wird erstellt für" + payload);
-  const date = payload;
-  const remark = "This is a sample flight plan.";
-  const randomId = Math.floor(Math.random() * (9999 - 1000) + 1000);
-  flightPlanEdit.value = FlightPlan.createEmtptyFlugzeugliste().withId(randomId.toString()).withDate(date).withName("Test").withFlugzeuge([newPlane]).withFreitext(remark);
-  flightPlans.value.push(flightPlanEdit.value);
-
 }
 
 watch(() => newPlane!.name, (newVal) => {

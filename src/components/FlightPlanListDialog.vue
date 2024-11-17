@@ -17,6 +17,7 @@
               </v-list-item-content>
               <template v-slot:append>
                 <v-icon @click="console.log(list)">mdi-format-list-text</v-icon>
+                <v-icon @click="deletePlan(index)">mdi-delete</v-icon>
               </template>
             </v-list-item>
           </v-list>
@@ -29,14 +30,18 @@
   </template>
 
   <script lang="ts" setup>
-    import { ref } from 'vue';
+  import { computed, ref } from 'vue'
     import FlightPlan from '@/types/FlightPlan';
+    import { useFlugplanStore } from '@/stores/flugplanStore'
 
-    const props = defineProps<{
-      flightPlans: FlightPlan[]
-    }>();
+    const flugplanStore = useFlugplanStore();
 
     const visible = ref(false);
+    const flightPlans = computed(() => flugplanStore.flugplaene);
+
+    function deletePlan(index: number) {
+      flugplanStore.flugplaene.splice(index, 1);
+    }
 
     defineExpose({
       open: () => { visible.value = true },
