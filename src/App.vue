@@ -69,6 +69,7 @@ if (user) {
       userState.userLoading = false;
     } else {
       u.value= null;
+      registerWithGoogle();
     }
   });
   planeStore.loadAllPlanes()
