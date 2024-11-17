@@ -1,11 +1,12 @@
 import Plane from '@/types/Plane'
+import { Timestamp } from "firebase/firestore"
 
 export default class FlightPlan {
   constructor(
     public id: string,
     public name: string,
     public freitext: string,
-    public date: Date,
+    public date: Timestamp,
     public flugzeuge: Plane[]
   ) {
     this.id = id;
@@ -25,7 +26,7 @@ export default class FlightPlan {
     return this;
   }
 
-  withDate(value: Date): FlightPlan {
+  withDate(value: Timestamp): FlightPlan {
     this.date = value;
     return this;
   }
@@ -43,7 +44,11 @@ export default class FlightPlan {
     return this;
   }
 
+  public static getDate(timestamp: Timestamp): string {
+    const seconds = timestamp.seconds;
+    return new Date(seconds * 1000).toLocaleDateString();
+  }
   public static createEmtptyFlugzeugliste(): FlightPlan {
-    return new FlightPlan("", "","", new Date(Date.now()), []);
+    return new FlightPlan("", "","", Timestamp.now(), []);
   }
 }

@@ -23,10 +23,18 @@ export const useFlugplanStore = defineStore('flugplanStore', {
     startEditFlightPlan() {
       this.flugplanEdit = FlightPlan.createEmtptyFlugzeugliste()
     },
+    updateFlightplan(): void {
+      FlightplanServiceApi.updateFlightplan(this.flugplanEdit).then(() => {
+        this.editMode = false;
+        this.flugplanEdit = FlightPlan.createEmtptyFlugzeugliste();
+        this.fetchFlightplans();
+      });
+    },
     addNewFlugplan(): void {
       this.loading = true
       //const randomId = Math.floor(Math.random() * (9999 - 1000) + 1000);
-      this.flugplanEdit.withId(this.flugplanEdit.date.toLocaleDateString())
+      const dateId = new Date(this.flugplanEdit.date.seconds *1000).toLocaleDateString()
+      this.flugplanEdit.withId(dateId + "-" + this.flugplanEdit.name)
       FlightplanServiceApi.saveNewFlightplan(this.flugplanEdit).then(() => {
         this.loading = false
         this.editMode = true;

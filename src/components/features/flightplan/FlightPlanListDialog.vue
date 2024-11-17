@@ -15,8 +15,11 @@
         <template v-else>
           <v-list lines="two">
             <v-list-item v-for="(list, index) in flightPlans" :key="index" @click="editPlan(index)">
-              <v-list-item-title>{{ list.name }} vom {{ list.date }}, id: {{ list.id }}
+              <v-list-item-title>{{ list.name }} id: {{ list.id }}
               </v-list-item-title>
+              <v-list-item-subtitle>
+                {{ getDate(list.date) }}
+              </v-list-item-subtitle>
               <v-list-item-subtitle>{{ list.freitext }}</v-list-item-subtitle>
               <v-list-item-subtitle>{{ list.flugzeuge.length }} planes</v-list-item-subtitle>
               <template v-slot:append>
@@ -43,10 +46,9 @@ const flugplanStore = useFlugplanStore()
 const planeStore = usePlaneStore()
 const visible = ref(false)
 const flightPlans = computed(() => flugplanStore.flugplaene)
-
-function deletePlan(index: number) {
-  //flugplanStore.flugplaene.splice(index, 1)
-  flugplanStore.deleteFlightplan(index)
+function getDate(timestamp) {
+ const seconds = timestamp.seconds;
+ return new Date(seconds * 1000).toLocaleDateString();
 }
 
 function editPlan(index: number) {

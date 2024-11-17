@@ -5,7 +5,7 @@
     </template>
     <v-card>
       <v-card-title>
-        Neuen Flugplan erstellen für: {{ flugplanStore.flugplanEdit.date.toLocaleDateString() }}
+        Neuen Flugplan erstellen für: {{ flugplanStore.flugplanEdit.date }}
       </v-card-title>
       <v-card-text>
         <v-text-field v-model="flugplanStore.flugplanEdit.name" label="Name des Flugplans" />
@@ -20,7 +20,7 @@
           :return-object="false"
           v-model="flugplanStore.flugplanEdit.flugzeuge"
         ></v-combobox>
-        <v-date-picker v-model="flugplanStore.flugplanEdit.date" />
+        <v-date-picker v-model="datum" @update:modelValue="setNewDate"/>
       </v-card-text>
       <v-card-actions>
         <v-btn @click="open = false">Abbrechen</v-btn>
@@ -37,16 +37,20 @@ import { ref } from 'vue'
 import { useFlugplanStore } from '@/stores/flugplanStore'
 import { toast } from 'vue3-toastify'
 import { usePlaneStore } from '@/stores/planeStore'
+import { Timestamp } from 'firebase/firestore'
 
 const flugplanStore = useFlugplanStore()
 const planeStore = usePlaneStore()
 const open = ref(false)
-const selectedDate = ref(new Date())
+const datum = ref(new Date(flugplanStore.flugplanEdit.date.seconds * 1000))
 
 const saveNewFlightPlan = () => {
-  toast.info('Neuer Flugplan wird erstellt für: ' + flugplanStore.flugplanEdit.date.toLocaleDateString())
+  toast.info('Neuer Flugplan wird erstellt für: ' + datum)
   flugplanStore.addNewFlugplan()
   open.value = false
+}
+function setNewDate() {
+  flugplanStore.flugplanEdit.date = Timestamp.fromDate(datum.value);
 }
 defineExpose({
   open: () => {
