@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
     <v-toolbar title="Werkbank">
-      <v-spacer />
-      <v-icon v-if="planeStore.hangarLoading" icon="mdi-loading mdi-spin" /> {{ planeStore.planesList.length }}
+      <template v-if="$vuetify.display.mdAndUp">
+    <v-icon v-if="planeStore.hangarLoading" icon="mdi-loading mdi-spin" /> {{ planeStore.planesList.length }}
       <v-select
         v-model="planeStore.editPlane"
         return-object
@@ -14,12 +14,51 @@
       @update:modelValue="startEditing"/>
       <BaseDialog activator-text="Flugzeug erstellen" @create="createPlane" title="Name des Flugzeugs" ref="baseDialog" />
       <v-spacer />
-      <v-btn variant="outlined" elevation="2" @click="openCreateDialog">
+      <v-btn variant="outlined" elevation="2" @click="openCreateDialog" class="my-2">
         <v-icon icon="mdi-airport" size="large"/>Neuer Flugplan
       </v-btn>
-      <v-btn variant="outlined" elevation="2" class="bg-blue-accent-1" @click="showFlightPlans">
+      <v-btn variant="outlined" elevation="2" class="bg-blue-accent-1 my-2" @click="showFlightPlans">
         <v-icon icon="mdi-playlist-edit" size="x-large" />
       </v-btn>
+      </template>
+      <!-- Mobile: Menü statt Buttons und Felder -->
+      <template v-else>
+        <v-menu>
+          <template #activator="{ props }">
+            <v-btn v-bind="props" icon>
+              <v-icon icon="mdi-menu" />
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item>
+              <v-icon icon="mdi-loading mdi-spin" v-if="planeStore.hangarLoading" />
+              Flugzeuge: {{ planeStore.planesList.length }}
+            </v-list-item>
+            <v-list-item @click="openCreateDialog">
+              <v-icon icon="mdi-airport" class="me-2" />
+              Neuer Flugplan
+            </v-list-item>
+            <v-list-item @click="showFlightPlans">
+              <v-icon icon="mdi-playlist-edit" class="me-2" />
+              Flugpläne anzeigen
+            </v-list-item>
+            <v-list-item>
+              <v-select
+                v-model="planeStore.editPlane"
+                return-object
+                label="Modell bearbeiten"
+                :loading="planeStore.hangarLoading"
+                :items="planeStore.getSortedPlanes"
+                item-title="name"
+                @update:modelValue="startEditing"
+              />
+            </v-list-item>
+            <v-list-item>
+              <BaseDialog activator-text="Flugzeug erstellen" @create="createPlane" title="Name des Flugzeugs" ref="baseDialog" />
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </template>
     </v-toolbar>
     <v-row>
       <v-col>
