@@ -33,7 +33,7 @@
       </v-col>
     </v-row>
     <FlightplanCreateDialog ref="flightplanCreateDialog" />
-    <FlightPlansDialog ref="flightPlansDialog" :flightPlans="flightPlans" />
+    <FlightPlansDialog ref="flightPlansDialog" />
   </v-container>
 </template>
 
@@ -47,8 +47,8 @@ import { batteryAsRecord } from '@/types/Battery'
 import TheEditPlane from '@/components/TheEditPlane.vue'
 import { toast } from 'vue3-toastify'
 import FlightPlan from '@/types/FlightPlan'
-import FlightPlansDialog from '@/components/FlightPlanListDialog.vue'
-import FlightplanCreateDialog from '@/components/FlightplanCreateDialog.vue'
+import FlightPlansDialog from '@/components/features/flightplan/FlightPlanListDialog.vue'
+import FlightplanCreateDialog from '@/components/features/flightplan/FlightplanCreateDialog.vue'
 import { useFlugplanStore } from '@/stores/flugplanStore'
 
 

@@ -18,7 +18,13 @@ export default class FlightplanServiceApi {
     await getDocs(collection(db, "flightplans"))
               .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
-                  plans.push(doc.data() as FlightPlan);
+                  const plan = doc.data() as FlightPlan;
+                  const id = doc.id;
+                  const date = doc.data().date.toDate();
+                  plan.date = date.toLocaleDateString();
+                  plan.id = id;
+                  console.log("plan: ", plan);
+                  plans.push(plan);
                 });
               });
             return plans;
