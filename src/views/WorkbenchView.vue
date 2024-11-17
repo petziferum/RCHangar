@@ -82,8 +82,7 @@
           <the-edit-plane @save="saveEmit" @cancel="cancel" />
         </template>
         <template v-if="flugplanStore.editMode">
-          Flugplan bearbeiten: <br>
-          {{ flugplanStore.flugplanEdit }}
+          <EditFlightplan />
         </template>
       </v-col>
     </v-row>
@@ -103,6 +102,7 @@ import TheEditPlane from '@/components/TheEditPlane.vue'
 import FlightPlansDialog from '@/components/features/flightplan/FlightPlanListDialog.vue'
 import FlightplanCreateDialog from '@/components/features/flightplan/FlightplanCreateDialog.vue'
 import { useFlugplanStore } from '@/stores/flugplanStore'
+import EditFlightplan from '@/components/features/flightplan/EditFlightplan.vue'
 
 
 const userStore = useUserStore()

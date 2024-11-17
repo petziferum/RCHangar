@@ -33,8 +33,10 @@ export const useFlugplanStore = defineStore('flugplanStore', {
       })
       this.flugplaene.push(this.flugplanEdit)
     },
-    deleteFlightplan(index: number): void {
-      FlightplanServiceApi.deleteFlightplan(this.flugplaene[index].id).then(() => {
+    deleteFlightplan(id: string): void {
+      FlightplanServiceApi.deleteFlightplan(id).then(() => {
+        this.editMode = false;
+        this.flugplanEdit = FlightPlan.createEmtptyFlugzeugliste();
        this.fetchFlightplans();
       });
     }
