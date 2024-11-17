@@ -20,7 +20,7 @@
               <v-list-item-subtitle>{{ list.freitext }}</v-list-item-subtitle>
               <v-list-item-subtitle>{{ list.flugzeuge.length }} planes</v-list-item-subtitle>
               <template v-slot:append>
-                <v-icon @click="saveInFirestore(index)">mdi-format-list-text</v-icon>
+                <v-icon>mdi-format-list-text</v-icon>
                 <v-icon @click="deletePlan(index)">mdi-delete</v-icon>
               </template>
             </v-list-item>
@@ -38,7 +38,6 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { useFlugplanStore } from '@/stores/flugplanStore'
-import FlightplanServiceApi from '@/api/flightplanService.api'
 
 const flugplanStore = useFlugplanStore()
 
@@ -46,13 +45,8 @@ const visible = ref(false)
 const flightPlans = computed(() => flugplanStore.flugplaene)
 
 function deletePlan(index: number) {
-  flugplanStore.flugplaene.splice(index, 1)
-}
-
-function saveInFirestore(i: number) {
-  const f = flightPlans
-  console.log('', f.value, i)
-  FlightplanServiceApi.saveNewFlightplan(f.value[i])
+  //flugplanStore.flugplaene.splice(index, 1)
+  flugplanStore.deleteFlightplan(index)
 }
 
 function open() {

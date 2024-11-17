@@ -1,5 +1,5 @@
 import FlightPlan from '@/types/FlightPlan'
-import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
+import { collection, doc, getDocs, setDoc, deleteDoc } from 'firebase/firestore'
 import { db } from '@/plugins/firesbaseConfig'
 
 export default class FlightplanServiceApi {
@@ -31,8 +31,15 @@ export default class FlightplanServiceApi {
     }
 
     public static async getFlightplanById(id: string): Promise<FlightPlan> {
-        return new Promise((resolve, reject) => {
-            return FlightPlan.createEmtptyFlugzeugliste(); // muss noch ausformuliert werden
-        });
+      return new Promise((resolve, reject) => {
+        return FlightPlan.createEmtptyFlugzeugliste(); // muss noch ausformuliert werden
+      });
     }
+
+      public static deleteFlightplan(id: string): Promise<void> {
+        return deleteDoc(doc(db, "flightplans", id)).then(r => {
+          console.log("Flightplan deleted: ", r);
+        })
+      }
+
 }

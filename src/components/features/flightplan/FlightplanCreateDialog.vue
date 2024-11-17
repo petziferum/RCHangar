@@ -11,6 +11,7 @@
         <v-text-field v-model="flugplanStore.flugplanEdit.name" label="Name des Flugplans" />
         <v-textarea v-model="flugplanStore.flugplanEdit.freitext" label="Freitext" />
         <v-combobox
+          label="Flugzeuge"
           :items="planeStore.planesList"
           chips
           item-title="name"
