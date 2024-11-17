@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import FlightPlan from '@/types/FlightPlan'
 import { ref } from 'vue'
+import FlightplanServiceApi from '@/api/flightplanService.api'
 
 export const useFlugplanStore = defineStore("flugplanStore", {
   state: () => ({
@@ -19,6 +20,7 @@ export const useFlugplanStore = defineStore("flugplanStore", {
     addNewFlugplan(): void {
       //const randomId = Math.floor(Math.random() * (9999 - 1000) + 1000);
       this.flugplanEdit.withId(this.flugplanEdit.date.toLocaleDateString());
+      FlightplanServiceApi.saveNewFlightplan(this.flugplanEdit);
       this.flugplaene.push(this.flugplanEdit);
       this.flugplanEdit = FlightPlan.createEmtptyFlugzeugliste();
     }

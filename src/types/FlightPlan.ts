@@ -2,7 +2,7 @@ import Plane from '@/types/Plane'
 
 export default class FlightPlan {
   constructor(
-    private id: string,
+    public id: string,
     public name: string,
     public freitext: string,
     public date: Date,

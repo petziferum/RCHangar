@@ -16,7 +16,7 @@
                 <v-list-item-subtitle>{{ list.flugzeuge.length }} planes</v-list-item-subtitle>
               </v-list-item-content>
               <template v-slot:append>
-                <v-icon @click="console.log(list)">mdi-format-list-text</v-icon>
+                <v-icon @click="saveInFirestore(index)">mdi-format-list-text</v-icon>
                 <v-icon @click="deletePlan(index)">mdi-delete</v-icon>
               </template>
             </v-list-item>
@@ -31,8 +31,8 @@
 
   <script lang="ts" setup>
   import { computed, ref } from 'vue'
-    import FlightPlan from '@/types/FlightPlan';
     import { useFlugplanStore } from '@/stores/flugplanStore'
+  import FlightplanServiceApi from '@/api/flightplanService.api'
 
     const flugplanStore = useFlugplanStore();
 
@@ -43,10 +43,23 @@
       flugplanStore.flugplaene.splice(index, 1);
     }
 
-    defineExpose({
-      open: () => { visible.value = true },
-      close: () => { visible.value = false }
-    });
+  function saveInFirestore(i: number) {
+      const f = flightPlans;
+    console.log("", f.value, i);
+    FlightplanServiceApi.saveNewFlightplan(f.value[i]);
+  }
+
+  function open() {
+      console.log("open");
+      visible.value = true
+      FlightplanServiceApi.getAllFlightplans().then((data) => {
+        console.log(data)
+      });
+  }
+
+  const close = () => { visible.value = false }
+
+    defineExpose({open, close});
   </script>
 
 <style scoped>
