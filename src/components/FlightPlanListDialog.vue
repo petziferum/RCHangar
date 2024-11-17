@@ -11,7 +11,7 @@
           <v-list lines="two">
             <v-list-item v-for="(list, index) in flightPlans" :key="index">
               <v-list-item-content>
-                <v-list-item-title>{{ list.date.toLocaleDateString() }} - {{ list.name }}</v-list-item-title>
+                <v-list-item-title>{{ list.date.toLocaleDateString() }} - {{ list.name }} id: {{list.id}}</v-list-item-title>
                 <v-list-item-subtitle>{{ list.freitext }}</v-list-item-subtitle>
                 <v-list-item-subtitle>{{ list.flugzeuge.length }} planes</v-list-item-subtitle>
               </v-list-item-content>

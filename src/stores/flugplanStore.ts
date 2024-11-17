@@ -10,12 +10,15 @@ export const useFlugplanStore = defineStore("flugplanStore", {
   flugplanCopy: ref<FlightPlan>(FlightPlan.createEmtptyFlugzeugliste()),
 }),
   actions: {
+    fetchFlightplans() {
+      // fetch flightplans from firebase
+    },
     startEditFlightPlan() {
       this.flugplanEdit = FlightPlan.createEmtptyFlugzeugliste();
     },
     addNewFlugplan(): void {
-      const randomId = Math.floor(Math.random() * (9999 - 1000) + 1000);
-      this.flugplanEdit.withId(randomId.toString());
+      //const randomId = Math.floor(Math.random() * (9999 - 1000) + 1000);
+      this.flugplanEdit.withId(this.flugplanEdit.date.toLocaleDateString());
       this.flugplaene.push(this.flugplanEdit);
       this.flugplanEdit = FlightPlan.createEmtptyFlugzeugliste();
     }
