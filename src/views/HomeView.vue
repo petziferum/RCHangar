@@ -38,7 +38,6 @@
             <v-icon v-if="planeStore.hangarLoading" class="mx-5" icon="mdi-knob mdi-spin" color="grey" />
           </v-card-text>
           <v-card-text>
-
             <v-data-iterator
               :items="planeStore.getSortedPlanes"
               :items-per-page="itemsPerPage"
@@ -94,6 +93,15 @@
                         <v-row>
                           <v-col cols="6">Gewicht: {{ plane.raw.gewicht }}</v-col>
                           <v-col cols="6">Spannweite: {{ plane.raw.spannweite }}</v-col>
+                          <v-col cols="6">Bauweise: {{ plane.raw.bauweise }}</v-col>
+                          <v-expansion-panels v-if="plane.raw.beschreibung" v-model="panel">
+                            <v-expansion-panel
+                              :text="plane.raw.beschreibung"
+                              title="Beschreibung"
+                              tile
+                              elevation="0"
+                            ></v-expansion-panel>
+                          </v-expansion-panels>
                         </v-row>
                       </v-card-text>
                     </v-card>
@@ -124,6 +132,7 @@ import { ref } from 'vue'
 
 const planeStore = usePlaneStore();
 const page = ref(1);
+const panel = [0]
 const itemsPerPage = ref(12);
 const hangarlogo = 'https://firebasestorage.googleapis.com/v0/b/hangar-7334.appspot.com/o/images%2FHANGARLOGO.png?alt=media&token=ae198399-07dd-4c7e-9de3-8cff4751ebeb';
 const seeAll = () => {
