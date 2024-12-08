@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+    <v-row justify="center">
     <v-col cols="12" class="text-center">
         <img
           :src="hangarlogo"
@@ -12,8 +12,7 @@
     <v-row class="mt-10 pt-10">
       <v-col cols="12" class="white--text text-center text-lg-h1 text-h5"
       >
-        <v-icon icon="mdi-controller mdi-spin" aria-hidden /><v-icon icon="mdi-airplane" aria-hidden /> Modellflugzeug - Hangar <v-icon icon="mdi-knob mdi-spin" />
-
+        <v-icon icon="mdi-controller mdi-spin" aria-hidden /><v-icon icon="mdi-airplane" aria-hidden />Modellflugzeug - Hangar <v-icon icon="mdi-knob mdi-spin" />
       </v-col
       >
     </v-row>
