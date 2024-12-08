@@ -94,7 +94,7 @@
                           <v-col cols="6">Gewicht: {{ plane.raw.gewicht }}</v-col>
                           <v-col cols="6">Spannweite: {{ plane.raw.spannweite }}</v-col>
                           <v-col cols="6">Bauweise: {{ plane.raw.bauweise }}</v-col>
-                          <v-expansion-panels v-if="plane.raw.beschreibung" v-model="panel">
+                          <v-expansion-panels v-if="plane.raw.beschreibung" :model-value="[0]">
                             <v-expansion-panel
                               :text="plane.raw.beschreibung"
                               title="Beschreibung"
@@ -132,8 +132,8 @@ import { ref } from 'vue'
 
 const planeStore = usePlaneStore();
 const page = ref(1);
-const panel = [0]
 const itemsPerPage = ref(12);
+const openPanels = ref([]);
 const hangarlogo = 'https://firebasestorage.googleapis.com/v0/b/hangar-7334.appspot.com/o/images%2FHANGARLOGO.png?alt=media&token=ae198399-07dd-4c7e-9de3-8cff4751ebeb';
 const seeAll = () => {
   itemsPerPage.value = itemsPerPage.value === 12 ? planeStore.getSortedPlanes.length : 12;
