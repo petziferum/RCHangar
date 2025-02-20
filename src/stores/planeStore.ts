@@ -9,6 +9,7 @@ import { serverTimestamp } from 'firebase/firestore'
 
 export const usePlaneStore = defineStore('planeStore', () => {
   const planesList = ref<Plane[]>([])
+  const filter = ref("");
   const hangarLoading = ref(false)
   const newPlane = ref<Plane>(Plane.createEmptyPlane().withOwner(useUserStore().appUser).withCrash(false))
   const editPlane = ref<Plane>(Plane.createEmptyPlane().withCrash(false))
@@ -86,9 +87,15 @@ export const usePlaneStore = defineStore('planeStore', () => {
   const getSortedPlanes = computed(() => {
     return planesList.value.slice().sort((a, b) => a.name.localeCompare(b.name));
   })
+  const getSortedAndFilteredPlanes = computed(() => {
+    return planesList.value
+      .filter(plane => plane.name.toLowerCase().includes(filter.value.toLowerCase()))
+      .slice()
+      .sort((a, b) => a.name.localeCompare(b.name));
+  });
   const getAllImages = computed(() => {
     return images.value;
   })
 
-  return { planesList,hangarLoading, newPlane, editPlane, images, editMode, saveNewPlane, loadAllPlanes, updateEditedPlane, updateImage, fetchAllImages, setOwnerToEditPlane, getPlanesAsList, getSortedPlanes, getAllImages, resetNewPlane}
+  return { planesList,hangarLoading, filter, newPlane, editPlane, images, editMode, saveNewPlane, loadAllPlanes, updateEditedPlane, updateImage, fetchAllImages, setOwnerToEditPlane, getPlanesAsList, getSortedPlanes, getSortedAndFilteredPlanes, getAllImages, resetNewPlane}
 })

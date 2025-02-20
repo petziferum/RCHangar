@@ -9,15 +9,21 @@
         v-model="orderBy"
         @input="getByOrder"
       ></v-select>
+      <v-text-field
+        v-model="planeStore.filter"
+        label="Suche"
+        dark
+        filled
+        clearable
+        ></v-text-field>
       <div class="mx-5 text-white">Flugzeuge: {{ planeStore.planesList.length }}, editplane {{ planeStore.editPlane.name }}</div>
     </v-col>
   </v-row>
-  <!-- Todo: Darstellung der Flugzeuge als v-data-iterator -->
   <v-row>
     <v-icon v-if="planeStore.hangarLoading" class="mx-5" icon="mdi-knob mdi-spin" color="grey" />
     <template v-else>
       <v-expansion-panels>
-        <v-expansion-panel v-for="plane in planeStore.getSortedPlanes" :key="plane.id">
+        <v-expansion-panel v-for="plane in planeStore.getSortedAndFilteredPlanes" :key="plane.id">
           <v-expansion-panel-title
             ripple
             :style="panelImage(plane.image)"
