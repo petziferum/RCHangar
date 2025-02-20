@@ -3,6 +3,8 @@ import Battery from '@/types/Battery'
 import LogEntry from '@/types/LogEntry'
 import User from '@/types/User'
 import { serverTimestamp } from 'firebase/firestore'
+import type { ComputedRef, Ref, UnwrapRef } from 'vue'
+import type { _ExtractStateFromSetupStore } from 'pinia'
 
 
 

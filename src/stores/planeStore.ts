@@ -10,7 +10,7 @@ import { serverTimestamp } from 'firebase/firestore'
 export const usePlaneStore = defineStore('planeStore', () => {
   const planesList = ref<Plane[]>([])
   const hangarLoading = ref(false)
-  const newPlane = ref<Plane>(Plane.createEmptyPlane().withCrash(false))
+  const newPlane = ref<Plane>(Plane.createEmptyPlane().withOwner(useUserStore().appUser).withCrash(false))
   const editPlane = ref<Plane>(Plane.createEmptyPlane().withCrash(false))
   const images = ref<string[]>([])
   const editMode = ref(false);
@@ -27,13 +27,21 @@ export const usePlaneStore = defineStore('planeStore', () => {
   }
   function saveNewPlane(): void {
     hangarLoading.value = true;
-    HangarService.saveNewPlane(newPlane.value).then((res) => {
-      editPlane.value = Object.assign({}, res);
-      resetNewPlane();
-      loadAllPlanes();
-    }).catch(error => {
-      console.log("Fehler beim Speichern", error);
-    }).finally(() => hangarLoading.value = false);
+
+    if(useUserStore().appUser.id) {
+      newPlane.value.owner = useUserStore().appUser;
+      console.log("create Plane with Owner: ", newPlane.value.owner.id);
+      HangarService.saveNewPlane(newPlane.value).then((res) => {
+        newPlane.value = Object.assign({}, res);
+        //resetNewPlane();
+        loadAllPlanes();
+      }).catch(error => {
+        console.log(error);
+      }).finally(() => hangarLoading.value = false);
+    } else {
+      console.log("kein User gefunden", useUserStore().appUser.id);
+      hangarLoading.value = false;
+    }
   }
   function updateEditedPlane(): void {
     hangarLoading.value = true;

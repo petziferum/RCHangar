@@ -82,7 +82,7 @@ const emit = defineEmits(["cancel", "save"]);
 const planeStore = usePlaneStore();
 const userStore = useUserStore();
 const hint = ref("");
-const editPlane = ref(false);
+const editPlaneMode = ref(false);
 const showRawData = ref(true);
 const batteries = batteryAsRecord
 const currentComponent = ref(null);
@@ -104,7 +104,7 @@ function setOwner() {
 }
 function updatePlane() {
   planeStore.updateEditedPlane();
-  editPlane.value = false;
+  editPlaneMode.value = false;
   emit("save")
 }
 function cancel() {

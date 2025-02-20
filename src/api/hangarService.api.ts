@@ -39,7 +39,7 @@ export default class HangarService {
 
   public static async saveNewPlane(plane: Plane): Promise<Plane> {
     console.log(" speichere mit id: ", plane.id);
-    toast("Speichere Flugzeug", { type: "info" });
+    console.log("owner: ", plane.owner);
     let id = "";
     if (plane.id) {
       id = plane.id;

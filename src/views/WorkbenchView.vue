@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-toolbar title="Werkbank">
-      <template v-if="$vuetify.display.mdAndUp">
+      <template v-if="display.mdAndUp">
         <v-icon v-if="planeStore.hangarLoading" icon="mdi-loading mdi-spin" />
         {{ planeStore.planesList.length }}
         <v-select
@@ -13,7 +13,7 @@
           :items="planeStore.getSortedPlanes"
           item-title="name"
           @update:modelValue="startEditing" />
-        <BaseDialog activator-text="Flugzeug erstellen" @create="createPlane" title="Name des Flugzeugs"
+        <CreateNewPlaneDialog activator-text="Flugzeug erstellen" @create="createPlane" title="Name des Flugzeugs"
                     ref="baseDialog" />
         <v-spacer />
         <v-btn variant="outlined" elevation="2" @click="openCreateDialog" class="my-2">
@@ -78,6 +78,7 @@
     </v-toolbar>
     <v-row>
       <v-col>
+        {{ newPlane.name }} - {{ planeStore.editPlane.name }}
         <template v-if="editPlane">
           <the-edit-plane @save="saveEmit" @cancel="cancel" />
         </template>
@@ -92,7 +93,7 @@
 </template>
 
 <script setup lang="ts">
-import BaseDialog from '@/components/BaseDialog.vue'
+import CreateNewPlaneDialog from '@/components/CreateNewPlaneDialog.vue'
 import { computed, onBeforeMount, ref, watch } from 'vue'
 import { useUserStore } from '@/stores/userStore'
 import { slugifyString } from '@/plugins/scripts'
@@ -103,19 +104,21 @@ import FlightPlansDialog from '@/components/features/flightplan/FlightPlanListDi
 import FlightplanCreateDialog from '@/components/features/flightplan/FlightplanCreateDialog.vue'
 import { useFlugplanStore } from '@/stores/flugplanStore'
 import EditFlightplan from '@/components/features/flightplan/EditFlightplan.vue'
+import { useDisplay } from 'vuetify'
 
 
 const userStore = useUserStore()
 const planeStore = usePlaneStore()
 const flugplanStore = useFlugplanStore()
-const newPlane = planeStore.editPlane
+const newPlane = planeStore.newPlane
 const baseDialog = ref(null)
-const editPlane = computed(()=> planeStore.editMode)
+const editPlane = computed<boolean>(()=> planeStore.editMode)
 const hint = ref('')
 const showRawData = ref(true)
 const batteries = batteryAsRecord
 const selectPlaneDialog = ref(false)
 const menuOpen = ref(false)
+const display = useDisplay();
 
 //Todo: EditPlane Komponente verwenden!
 //Todo: Battery als Dropdown auswahlfeld einfügen.
@@ -158,16 +161,16 @@ function loadPlanes(): void {
 function createPlane() {
   console.log('createPlane', newPlane.name)
   planeStore.saveNewPlane()
-  editPlane.value = true
+  planeStore.editMode = true;
 }
 
 function saveEmit() {
   console.log('updatePlane saveemit', planeStore.editPlane)
-  editPlane.value = false
+  planeStore.editMode = false;
 }
 
 function cancel() {
-  editPlane.value = false
+  planeStore.editMode = false
 }
 
 </script>
